@@ -3,57 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vorislar – Milliy sertifikat</title>
+  <title>Vorislar WebApp</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
     body {
       margin: 0;
-      padding: 20px;
+      padding: 16px;
       font-family: system-ui, sans-serif;
-      background: linear-gradient(180deg, #0b1220, #0f172a);
+      background: #0f172a;
       color: #e5e7eb;
     }
 
     h1 {
       color: #38bdf8;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     h3 {
-      margin-top: 0;
       color: #7dd3fc;
+      margin-top: 0;
     }
 
     .card {
       background: #020617;
       border: 1px solid #1e293b;
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 16px;
       margin-bottom: 16px;
     }
 
-    input, textarea, button {
+    input {
       width: 100%;
       padding: 12px;
-      margin-top: 8px;
-      border-radius: 12px;
-      border: 1px solid #1e293b;
+      border-radius: 10px;
+      border: none;
+      outline: none;
       background: #020617;
-      color: #e5e7eb;
-      font-size: 16px;
+      color: #fff;
+      border: 1px solid #1e293b;
+      margin-bottom: 10px;
     }
 
     button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
       background: #38bdf8;
       color: #020617;
       font-weight: bold;
       cursor: pointer;
-    }
-
-    button:active {
-      transform: scale(0.98);
     }
 
     .nav {
@@ -61,149 +62,147 @@
       bottom: 0;
       left: 0;
       right: 0;
+      display: flex;
       background: #020617;
       border-top: 1px solid #1e293b;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
     }
 
     .nav button {
-      width: auto;
+      flex: 1;
       background: none;
       color: #e5e7eb;
-      border: none;
-      font-size: 14px;
+      border-radius: 0;
     }
 
-    .active {
+    .nav button.active {
+      background: #0f172a;
       color: #38bdf8;
-      font-weight: bold;
     }
 
     .green { color: #22c55e; }
-    .gold { color: gold; }
+    .yellow { color: #facc15; }
   </style>
 </head>
 
 <body>
+
   <h1>📘 Vorislar</h1>
+
+  <div class="card">
+    <p id="user">Foydalanuvchi: —</p>
+    <p>Ball: <b id="ball">0</b></p>
+  </div>
 
   <div id="content"></div>
 
   <div class="nav">
-    <button onclick="openPage('lugat')" class="active">📘 Lug‘at</button>
-    <button onclick="openPage('test')">📝 Test</button>
-    <button onclick="openPage('essay')">✍️ Essay</button>
-    <button onclick="openPage('profil')">👤 Profil</button>
+    <button id="nav-lugat" class="active" onclick="openPage('lugat')">📘 Lug‘at</button>
+    <button id="nav-test" onclick="openPage('test')">📝 Test</button>
+    <button id="nav-essay" onclick="openPage('essay')">✍️ Essay</button>
+    <button id="nav-profil" onclick="openPage('profil')">👤 Profil</button>
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.ready();
+<script>
+  const tg = window.Telegram.WebApp;
+  tg.ready();
 
-    let user = tg.initDataUnsafe?.user?.first_name || "Foydalanuvchi";
+  let state = {
+    ball: 0
+  };
 
-    let state = {
-      ball: 0,
-      tests: 0,
-      essays: 0
-    };
+  if (tg.initDataUnsafe?.user) {
+    document.getElementById("user").innerText =
+      "Foydalanuvchi: " + tg.initDataUnsafe.user.first_name;
+  }
 
-    function openPage(page) {
-      document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
-      document.querySelector(`.nav button[onclick*="${page}"]`)?.classList.add("active");
+  function updateBall() {
+    document.getElementById("ball").innerText = state.ball;
+  }
 
-      const content = document.getElementById("content");
+  function openPage(page) {
+    document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+    document.getElementById("nav-" + page).classList.add("active");
 
-      // 📘 LUG‘AT (BALL YO‘Q)
-      if (page === "lugat") {
-        content.innerHTML = `
-          <div class="card">
-            <p>👤 ${user}</p>
-            <p>⭐ Ball: <b>${state.ball}</b></p>
-          </div>
+    const content = document.getElementById("content");
 
-          <div class="card">
-            <h3>📘 Lug‘at</h3>
-            <input id="word" placeholder="So‘z kiriting" />
-            <button onclick="searchWord()">Qidirish</button>
-            <div id="result"></div>
-          </div>
-        `;
-      }
-
-      // 📝 TEST
-      if (page === "test") {
-        content.innerHTML = `
-          <div class="card">
-            <h3>📝 Test</h3>
-            <p>To‘g‘ri javob = +1 ball</p>
-            <button onclick="finishTest()">Testni tugatish</button>
-          </div>
-        `;
-      }
-
-      // ✍️ ESSAY
-      if (page === "essay") {
-        content.innerHTML = `
-          <div class="card">
-            <h3>✍️ Essay</h3>
-            <textarea rows="5" placeholder="Essay yozing..."></textarea>
-            <button onclick="submitEssay()">Essay topshirish</button>
-          </div>
-        `;
-      }
-
-      // 👤 PROFIL
-      if (page === "profil") {
-        let premium = state.ball >= 100 ? "50%" :
-                      state.ball >= 70 ? "20%" :
-                      state.ball >= 40 ? "15%" : "10%";
-
-        content.innerHTML = `
-          <div class="card">
-            <h3>👤 Profil</h3>
-            <p>Ism: <b>${user}</b></p>
-            <p>⭐ Ball: <b>${state.ball}</b></p>
-            <p>📝 Testlar: ${state.tests}</p>
-            <p>✍️ Essaylar: ${state.essays}</p>
-            <p class="gold">💎 Premium: ${premium}</p>
-          </div>
-        `;
-      }
-    }
-
-    function searchWord() {
-      const word = document.getElementById("word").value.trim();
-      const result = document.getElementById("result");
-
-      if (!word) {
-        result.innerHTML = "<p>❗ So‘z kiriting</p>";
-        return;
-      }
-
-      result.innerHTML = `
-        <p><b>So‘z:</b> ${word}</p>
-        <p><b>Ma’nosi:</b> Namuna (keyin API ulanadi)</p>
-        <p><b>Sinonim:</b> —</p>
-        <p><b>Antonim:</b> —</p>
+    /* ===== LUG‘AT (BALL YO‘Q) ===== */
+    if (page === "lugat") {
+      content.innerHTML = `
+        <div class="card">
+          <h3>📘 Lug‘at</h3>
+          <input id="word" placeholder="So‘z kiriting..." />
+          <button onclick="searchWord()">Qidirish</button>
+          <div id="result"></div>
+        </div>
       `;
     }
 
-    function finishTest() {
+    /* ===== TEST (KEYIN ULANADI) ===== */
+    if (page === "test") {
+      state.ball += 5;
+      updateBall();
+
+      content.innerHTML = `
+        <div class="card">
+          <h3>📝 Testlar</h3>
+          <p>Grammatika va milliy sertifikat testlari.</p>
+          <p class="green">+5 ball (test faolligi)</p>
+        </div>
+      `;
+    }
+
+    /* ===== ESSAY (KEYIN AI ULANADI) ===== */
+    if (page === "essay") {
       state.ball += 10;
-      state.tests += 1;
-      alert("✅ Test tugadi. +10 ball");
+      updateBall();
+
+      content.innerHTML = `
+        <div class="card">
+          <h3>✍️ Essay</h3>
+          <p>Essay yozish va AI orqali baholash.</p>
+          <p class="green">+10 ball (essay topshirildi)</p>
+        </div>
+      `;
     }
 
-    function submitEssay() {
-      state.ball += 15;
-      state.essays += 1;
-      alert("✍️ Essay qabul qilindi. +15 ball");
+    /* ===== PROFIL + PREMIUM ===== */
+    if (page === "profil") {
+
+      let premium =
+        state.ball >= 100 ? "40%" :
+        state.ball >= 60  ? "20%" :
+        state.ball >= 30  ? "10%" :
+        "0%";
+
+      content.innerHTML = `
+        <div class="card">
+          <h3>👤 Profil</h3>
+          <p>Ball: <b>${state.ball}</b></p>
+          <p>Premium chegirma: <b class="yellow">${premium}</b></p>
+        </div>
+      `;
+    }
+  }
+
+  function searchWord() {
+    const word = document.getElementById("word").value.trim();
+    const result = document.getElementById("result");
+
+    if (!word) {
+      result.innerHTML = "<p>❗ So‘z kiriting</p>";
+      return;
     }
 
-    openPage("lugat");
-  </script>
+    result.innerHTML = `
+      <p><b>So‘z:</b> ${word}</p>
+      <p><b>Ma’nosi:</b> Namuna ma’no (keyin API ulanadi)</p>
+      <p><b>Sinonim:</b> —</p>
+      <p><b>Antonim:</b> —</p>
+    `;
+  }
+
+  openPage("lugat");
+</script>
+
 </body>
 </html>
