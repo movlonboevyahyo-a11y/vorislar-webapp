@@ -1,3 +1,5 @@
+window.onload = function () {
+
 const testBlocks = [
   { id: 1, title: "Badiiy matn", tests: [
     { question: "Asar nomi orqali qanday badiiy maqsad ifoda etilgan?",
@@ -60,7 +62,6 @@ const testBlocks = [
   ]}
 ];
 
-// ===== INTERFEYS =====
 const box = document.getElementById("tests-container");
 
 box.innerHTML = `
@@ -97,3 +98,5 @@ document.getElementById("blockSelect").onchange = function () {
     area.appendChild(c);
   });
 };
+
+}; // 👈 ENG MUHIM YOPILISH
