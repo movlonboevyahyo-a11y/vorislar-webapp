@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vorislar WebApp</title>
+  <title>Vorislar — Ona tili</title>
 
+  <!-- Telegram WebApp -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
     body {
       margin: 0;
-      padding: 20px;
-      font-family: system-ui, sans-serif;
+      padding: 20px 16px 90px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: #0f172a;
       color: #e5e7eb;
     }
 
     h1 {
       color: #38bdf8;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .box {
@@ -26,16 +27,57 @@
       border: 1px solid #1e293b;
       border-radius: 14px;
       padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .menu {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #020617;
+      border-top: 1px solid #1e293b;
+      display: flex;
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .menu button {
+      flex: 1;
+      background: #020617;
+      color: #e5e7eb;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .menu button:active {
+      background: #1e293b;
     }
   </style>
 </head>
 
 <body>
+
   <h1>📘 Vorislar</h1>
 
   <div class="box">
     <p>Telegram Web App ishlayapti ✅</p>
     <p id="user"></p>
+  </div>
+
+  <div id="content" class="box">
+    <p>Ona tili va milliy sertifikatga tayyorlov ilovasi</p>
+    <p>Pastdan bo‘lim tanlang 👇</p>
+  </div>
+
+  <!-- Bottom menu -->
+  <div class="menu">
+    <button onclick="showPage('lugat')">📘 Lug‘at</button>
+    <button onclick="showPage('test')">📝 Test</button>
+    <button onclick="showPage('essay')">✍️ Essay</button>
+    <button onclick="showPage('profil')">👤 Profil</button>
   </div>
 
   <script>
@@ -46,6 +88,39 @@
       document.getElementById("user").innerText =
         "Foydalanuvchi: " + tg.initDataUnsafe.user.first_name;
     }
+
+    function showPage(page) {
+      const content = document.getElementById("content");
+
+      if (page === "lugat") {
+        content.innerHTML = `
+          <h3>📘 Lug‘at</h3>
+          <p>So‘z qidirish, sinonim, antonim, misollar shu yerda bo‘ladi.</p>
+        `;
+      }
+
+      if (page === "test") {
+        content.innerHTML = `
+          <h3>📝 Testlar</h3>
+          <p>Grammatika va milliy sertifikat testlari.</p>
+        `;
+      }
+
+      if (page === "essay") {
+        content.innerHTML = `
+          <h3>✍️ Essay</h3>
+          <p>Essay yozing, AI orqali baholang (keyingi bosqich).</p>
+        `;
+      }
+
+      if (page === "profil") {
+        content.innerHTML = `
+          <h3>👤 Profil</h3>
+          <p>Ballar, reyting, premium va sozlamalar.</p>
+        `;
+      }
+    }
   </script>
+
 </body>
 </html>
