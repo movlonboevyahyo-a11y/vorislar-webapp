@@ -1,193 +1,176 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vorislar — Testlar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milliy Sertifikat — Test & Essay</title>
 
-  <style>
-    body {
-      margin: 0;
-      padding: 16px 16px 90px;
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-    }
+<link rel="stylesheet" href="style.css">
 
-    h1 {
-      color: #38bdf8;
-      margin-bottom: 12px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
 
-    .card {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
+header {
+  background: #020617;
+  padding: 14px;
+  display: flex;
+  justify-content: space-around;
+}
 
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border-radius: 10px;
-      border: none;
-      background: #020617;
-      color: #e5e7eb;
-      border: 1px solid #1e293b;
-      cursor: pointer;
-      text-align: left;
-    }
+header button {
+  background: none;
+  border: none;
+  color: #e5e7eb;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    button:hover {
-      background: #1e293b;
-    }
+header button.active {
+  color: #38bdf8;
+}
 
-    .nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      background: #020617;
-      border-top: 1px solid #1e293b;
-    }
+.section {
+  display: none;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
 
-    .nav button {
-      flex: 1;
-      background: none;
-      border: none;
-      color: #e5e7eb;
-      text-align: center;
-    }
+.section.active {
+  display: block;
+}
 
-    .nav button.active {
-      color: #38bdf8;
-    }
-  </style>
+h1 {
+  text-align: center;
+  color: #38bdf8;
+}
+
+.card {
+  background: #020617;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.option {
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #1e293b;
+}
+
+.correct { background: #166534; }
+.wrong { background: #7f1d1d; }
+
+button.main {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e;
+  color: #020617;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #020617;
+  color: #e5e7eb;
+  border: none;
+  border-radius: 8px;
+}
+
+textarea {
+  height: 220px;
+}
+
+.result {
+  background: #020617;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  display: none;
+}
+
+.score {
+  color: #facc15;
+  font-size: 22px;
+}
+</style>
 </head>
 
 <body>
 
-<h1>📘 Vorislar — 1-blok testlar</h1>
+<header>
+  <button id="btn-home" class="active" onclick="openSection('home', this)">🏠 Bosh</button>
+  <button id="btn-tests" onclick="openSection('tests', this)">📝 Testlar</button>
+  <button id="btn-essays" onclick="openSection('essays', this)">✍️ Esselar</button>
+  <button id="btn-profile" onclick="openSection('profile', this)">👤 Profil</button>
+</header>
 
-<div id="content"></div>
-
-<div class="nav">
-  <button id="nav-test" class="active" onclick="openPage()">📝 Test</button>
+<!-- BOSH -->
+<div id="home" class="section active">
+  <h1>Milliy Sertifikat Tayyorlov</h1>
+  <div class="card">
+    <p>
+      Bu ilovada:
+      <br>• Testlar ishlaysiz
+      <br>• Esselar yozasiz
+      <br>• AI yordamida baholanadi
+    </p>
+  </div>
 </div>
 
+<!-- TESTLAR -->
+<div id="tests" class="section">
+  <h1>Testlar</h1>
+  <div id="tests-container">
+    <!-- testlar tests.js orqali shu yerga chiqadi -->
+  </div>
+</div>
+
+<!-- ESSELAR -->
+<div id="essays" class="section">
+  <h1>Esselar</h1>
+  <div id="essays-container">
+    <!-- esselar essays.js orqali shu yerga chiqadi -->
+  </div>
+</div>
+
+<!-- PROFIL -->
+<div id="profile" class="section">
+  <h1>Profil</h1>
+  <div class="card">
+    <p>Test ball: <b><span id="testScore">0</span></b></p>
+    <p>Essay ball: <b><span id="essayScore">0</span></b></p>
+  </div>
+</div>
+
+<!-- TASHQI JS FAYLLAR -->
+<script src="essays.js"></script>
+<script src="tests.js"></script>
+
 <script>
-/* =========================
-   1-BLOK TESTLAR (ORIGINAL USLUB)
-========================= */
+function openSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 
-const testBlock1 = [
-  {
-    question: "23. Asar nomi orqali qanday badiiy maqsad ifoda etilgan?",
-    options: [
-      "Aurelio Eskover o‘z ishxonasida har doim o‘z mijozlariga bir xil munosabatda bo‘lishi bayon etilgan.",
-      "Uninng kuni unga keladigan mijozlarga bog‘liq bo‘lganligi sababli bir xil bo‘lmasligi ta’kidlangan.",
-      "Doktor hayotida har kuni turli xildagi mijozlarning tashrif buyurishi va ular orqali uning munosabati ifodalangan.",
-      "Doktorning kutilmaganda bunday vaziyatga duch kelgan kuni ifodalangan."
-    ],
-    answer: 2
-  },
-  {
-    question: "24. Tish doktori obraziga mos to‘g‘ri berilgan javobni aniqlang.",
-    options: [
-      "O‘z vazifasiga nisbatan shoshqaloq inson.",
-      "Bemehr ota timsoli sifatida gavdalangan.",
-      "Mijozlarga nisbatan qilgan ishiga yarasha javob olgan shaxs.",
-      "Manman insonligi sababli oxir-oqibat pushaymon bo‘ladi."
-    ],
-    answer: 2
-  },
-  {
-    question: "25. Mayor obraziga mos ta’rif berilgan javobni aniqlang.",
-    options: [
-      "Qo‘lidan kelgancha birovlarga yordam beruvchi shaxs.",
-      "Bolaning yaqini bo‘lmasa-da, unga nisbatan yaxshi muomalada bo‘lgan inson.",
-      "Insonlarning muomalasiga ko‘ra yondashadigan inson timsoli.",
-      "Har qanday vaziyatdan chiqib keta oladigan makkor kishi."
-    ],
-    answer: 2
-  },
-  {
-    question: "26. [1] raqami bilan ajratib ko‘rsatilgan qismda qahramon holati qanday izohlangan?",
-    options: [
-      "Pul borasidagi muammolar sabab qayerga to‘lanishini tushunmagan holati.",
-      "Tutgan ishiga nisbatan qilingan achinish.",
-      "Qilgan ishidan taajjublanganligi ta’kidlangan.",
-      "Doktorning ishiga yarasha qilingan ta’naga ishora."
-    ],
-    answer: 3
-  },
-  {
-    question: "27. [2] raqami bilan ajratib ko‘rsatilgan gapda qanday uslubiy ma’no ifodalangan?",
-    options: [
-      "Lol qolish.",
-      "Kinoya.",
-      "Shikoyat.",
-      "Istehzo."
-    ],
-    answer: 1
-  }
-];
-
-/* =========================
-   TEST DVJOKI (A/B/C/D)
-========================= */
-
-let current = 0;
-let score = 0;
-const letters = ["A", "B", "C", "D"];
-
-function openPage() {
-  document.getElementById("content").innerHTML = `
-    <div class="card" id="quiz">
-      <h3 id="question"></h3>
-      <button class="option"></button>
-      <button class="option"></button>
-      <button class="option"></button>
-      <button class="option"></button>
-    </div>
-  `;
-  startTest(testBlock1);
+  document.querySelectorAll('header button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
-
-function startTest(arr) {
-  current = 0;
-  score = 0;
-  window.tests = arr;
-  loadTest();
-}
-
-function loadTest() {
-  if (current >= tests.length) {
-    document.getElementById("quiz").innerHTML = `
-      <h3>✅ Test tugadi</h3>
-      <p>Natija: <b>${score} / ${tests.length}</b></p>
-    `;
-    return;
-  }
-
-  const t = tests[current];
-  document.getElementById("question").innerText = t.question;
-
-  const opts = document.querySelectorAll(".option");
-  opts.forEach((btn, i) => {
-    btn.innerText = letters[i] + ") " + t.options[i];
-    btn.onclick = () => {
-      if (i === t.answer) score++;
-      current++;
-      loadTest();
-    };
-  });
-}
-
-openPage();
 </script>
 
 </body>
