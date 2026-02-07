@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vorislar – Milliy sertifikat</title>
-
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vorislar — Testlar</title>
 
   <style>
     body {
       margin: 0;
-      padding: 16px;
+      padding: 16px 16px 90px;
       font-family: system-ui, sans-serif;
       background: #0f172a;
       color: #e5e7eb;
     }
 
-    h1 { color: #38bdf8; }
-    h3 { color: #7dd3fc; margin-top: 0; }
+    h1 {
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
 
     .card {
       background: #020617;
@@ -27,25 +27,21 @@
       margin-bottom: 16px;
     }
 
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #1e293b;
-      background: #020617;
-      color: #e5e7eb;
-      margin-bottom: 10px;
-    }
-
     button {
       width: 100%;
       padding: 12px;
+      margin-top: 8px;
       border-radius: 10px;
       border: none;
-      background: #38bdf8;
-      color: #020617;
-      font-weight: bold;
+      background: #020617;
+      color: #e5e7eb;
+      border: 1px solid #1e293b;
       cursor: pointer;
+      text-align: left;
+    }
+
+    button:hover {
+      background: #1e293b;
     }
 
     .nav {
@@ -61,154 +57,137 @@
     .nav button {
       flex: 1;
       background: none;
+      border: none;
       color: #e5e7eb;
+      text-align: center;
     }
 
     .nav button.active {
-      background: #0f172a;
       color: #38bdf8;
     }
-
-    .green { color: #22c55e; }
-    .yellow { color: #facc15; }
   </style>
 </head>
 
 <body>
 
-<h1>📘 Vorislar</h1>
-
-<div class="card">
-  <p id="user">Foydalanuvchi: —</p>
-  <p>⭐ Ball: <b id="ball">0</b></p>
-</div>
+<h1>📘 Vorislar — 1-blok testlar</h1>
 
 <div id="content"></div>
 
 <div class="nav">
-  <button id="nav-lugat" class="active" onclick="openPage('lugat')">📘 Lug‘at</button>
-  <button id="nav-test" onclick="openPage('test')">📝 Test</button>
-  <button id="nav-essay" onclick="openPage('essay')">✍️ Essay</button>
-  <button id="nav-profil" onclick="openPage('profil')">👤 Profil</button>
+  <button id="nav-test" class="active" onclick="openPage()">📝 Test</button>
 </div>
 
 <script>
-  const tg = window.Telegram.WebApp;
-  tg.ready();
+/* =========================
+   1-BLOK TESTLAR (ORIGINAL USLUB)
+========================= */
 
-  const saved = JSON.parse(localStorage.getItem("vorislar_state")) || {
-    ball: 0,
-    essays: 0,
-    tests: 0
-  };
-
-  let state = saved;
-
-  if (tg.initDataUnsafe?.user) {
-    document.getElementById("user").innerText =
-      "Foydalanuvchi: " + tg.initDataUnsafe.user.first_name;
+const testBlock1 = [
+  {
+    question: "23. Asar nomi orqali qanday badiiy maqsad ifoda etilgan?",
+    options: [
+      "Aurelio Eskover o‘z ishxonasida har doim o‘z mijozlariga bir xil munosabatda bo‘lishi bayon etilgan.",
+      "Uninng kuni unga keladigan mijozlarga bog‘liq bo‘lganligi sababli bir xil bo‘lmasligi ta’kidlangan.",
+      "Doktor hayotida har kuni turli xildagi mijozlarning tashrif buyurishi va ular orqali uning munosabati ifodalangan.",
+      "Doktorning kutilmaganda bunday vaziyatga duch kelgan kuni ifodalangan."
+    ],
+    answer: 2
+  },
+  {
+    question: "24. Tish doktori obraziga mos to‘g‘ri berilgan javobni aniqlang.",
+    options: [
+      "O‘z vazifasiga nisbatan shoshqaloq inson.",
+      "Bemehr ota timsoli sifatida gavdalangan.",
+      "Mijozlarga nisbatan qilgan ishiga yarasha javob olgan shaxs.",
+      "Manman insonligi sababli oxir-oqibat pushaymon bo‘ladi."
+    ],
+    answer: 2
+  },
+  {
+    question: "25. Mayor obraziga mos ta’rif berilgan javobni aniqlang.",
+    options: [
+      "Qo‘lidan kelgancha birovlarga yordam beruvchi shaxs.",
+      "Bolaning yaqini bo‘lmasa-da, unga nisbatan yaxshi muomalada bo‘lgan inson.",
+      "Insonlarning muomalasiga ko‘ra yondashadigan inson timsoli.",
+      "Har qanday vaziyatdan chiqib keta oladigan makkor kishi."
+    ],
+    answer: 2
+  },
+  {
+    question: "26. [1] raqami bilan ajratib ko‘rsatilgan qismda qahramon holati qanday izohlangan?",
+    options: [
+      "Pul borasidagi muammolar sabab qayerga to‘lanishini tushunmagan holati.",
+      "Tutgan ishiga nisbatan qilingan achinish.",
+      "Qilgan ishidan taajjublanganligi ta’kidlangan.",
+      "Doktorning ishiga yarasha qilingan ta’naga ishora."
+    ],
+    answer: 3
+  },
+  {
+    question: "27. [2] raqami bilan ajratib ko‘rsatilgan gapda qanday uslubiy ma’no ifodalangan?",
+    options: [
+      "Lol qolish.",
+      "Kinoya.",
+      "Shikoyat.",
+      "Istehzo."
+    ],
+    answer: 1
   }
+];
 
-  function saveState() {
-    localStorage.setItem("vorislar_state", JSON.stringify(state));
-    document.getElementById("ball").innerText = state.ball;
-  }
+/* =========================
+   TEST DVJOKI (A/B/C/D)
+========================= */
 
-  saveState();
+let current = 0;
+let score = 0;
+const letters = ["A", "B", "C", "D"];
 
-  function openPage(page) {
-    document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
-    document.getElementById("nav-" + page).classList.add("active");
+function openPage() {
+  document.getElementById("content").innerHTML = `
+    <div class="card" id="quiz">
+      <h3 id="question"></h3>
+      <button class="option"></button>
+      <button class="option"></button>
+      <button class="option"></button>
+      <button class="option"></button>
+    </div>
+  `;
+  startTest(testBlock1);
+}
 
-    const content = document.getElementById("content");
+function startTest(arr) {
+  current = 0;
+  score = 0;
+  window.tests = arr;
+  loadTest();
+}
 
-    /* LUG‘AT */
-    if (page === "lugat") {
-      content.innerHTML = `
-        <div class="card">
-          <h3>📘 Lug‘at</h3>
-          <input id="word" placeholder="So‘z kiriting...">
-          <button onclick="searchWord()">Qidirish</button>
-          <div id="result"></div>
-        </div>
-      `;
-    }
-
-    /* TEST (sen keyin to‘ldirasan) */
-    if (page === "test") {
-      content.innerHTML = `
-        <div class="card">
-          <h3>📝 Test</h3>
-          <p>Bu bo‘limni sen real testlar bilan to‘ldirasan.</p>
-          <p class="yellow">Ball test savollariga qarab beriladi.</p>
-        </div>
-      `;
-    }
-
-    /* ESSAY */
-    if (page === "essay") {
-      content.innerHTML = `
-        <div class="card">
-          <h3>✍️ Essay</h3>
-          <textarea id="essayText" rows="6" placeholder="Essay yozing..."></textarea>
-          <button onclick="submitEssay()">Essay topshirish</button>
-          <div id="essayResult"></div>
-        </div>
-      `;
-    }
-
-    /* PROFIL */
-    if (page === "profil") {
-      let premium =
-        state.ball >= 100 ? "40%" :
-        state.ball >= 60  ? "20%" :
-        state.ball >= 30  ? "10%" :
-        "0%";
-
-      content.innerHTML = `
-        <div class="card">
-          <h3>👤 Profil</h3>
-          <p>Ball: <b>${state.ball}</b></p>
-          <p>Essaylar: ${state.essays}</p>
-          <p>Testlar: ${state.tests}</p>
-          <p class="yellow">Premium: ${premium}</p>
-        </div>
-      `;
-    }
-  }
-
-  function searchWord() {
-    const word = document.getElementById("word").value.trim();
-    const result = document.getElementById("result");
-    if (!word) {
-      result.innerHTML = "<p>❗ So‘z kiriting</p>";
-      return;
-    }
-    result.innerHTML = `
-      <p><b>So‘z:</b> ${word}</p>
-      <p><b>Ma’nosi:</b> Namuna (keyin API ulanadi)</p>
+function loadTest() {
+  if (current >= tests.length) {
+    document.getElementById("quiz").innerHTML = `
+      <h3>✅ Test tugadi</h3>
+      <p>Natija: <b>${score} / ${tests.length}</b></p>
     `;
+    return;
   }
 
-  function submitEssay() {
-    const text = document.getElementById("essayText").value.trim();
-    const res = document.getElementById("essayResult");
+  const t = tests[current];
+  document.getElementById("question").innerText = t.question;
 
-    if (text.length < 50) {
-      res.innerHTML = "<p>❗ Essay juda qisqa</p>";
-      return;
-    }
+  const opts = document.querySelectorAll(".option");
+  opts.forEach((btn, i) => {
+    btn.innerText = letters[i] + ") " + t.options[i];
+    btn.onclick = () => {
+      if (i === t.answer) score++;
+      current++;
+      loadTest();
+    };
+  });
+}
 
-    let earned = text.length >= 300 ? 20 : text.length >= 150 ? 15 : 10;
-
-    state.ball += earned;
-    state.essays += 1;
-    saveState();
-
-    res.innerHTML = `<p class="green">Essay qabul qilindi. +${earned} ball</p>`;
-  }
-
-  openPage("lugat");
+openPage();
 </script>
 
 </body>
