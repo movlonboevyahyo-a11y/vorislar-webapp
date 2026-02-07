@@ -3,35 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vorislar WebApp</title>
+  <title>Vorislar — Ona tili</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
     body {
       margin: 0;
-      padding: 16px;
+      padding: 16px 16px 90px;
       font-family: system-ui, sans-serif;
       background: #0f172a;
       color: #e5e7eb;
     }
 
-    h1 {
-      color: #38bdf8;
-      margin-bottom: 16px;
-    }
+    h1 { color: #38bdf8; }
+    h3 { color: #7dd3fc; }
 
-    h3 {
-      color: #7dd3fc;
-      margin-bottom: 8px;
-    }
-
-    .box {
+    .card {
       background: #020617;
       border: 1px solid #1e293b;
       border-radius: 14px;
       padding: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     input {
@@ -66,9 +59,9 @@
 
     .menu button {
       flex: 1;
-      border-radius: 0;
       background: transparent;
       color: #e5e7eb;
+      border-radius: 0;
     }
 
     .menu button.active {
@@ -78,86 +71,91 @@
 </head>
 
 <body>
-  <h1>📘 Vorislar</h1>
 
-  <div class="box">
-    <p>Telegram Web App ishlayapti ✅</p>
-    <p id="user"></p>
-  </div>
+<h1>📘 Vorislar</h1>
 
-  <div id="content" class="box"></div>
+<div class="card">
+  <p id="user">Foydalanuvchi: —</p>
+  <p>Ball: <b id="points">0</b></p>
+</div>
 
-  <div class="menu">
-    <button onclick="openPage('lugat')" class="active">📘 Lug‘at</button>
-    <button onclick="openPage('test')">📝 Test</button>
-    <button onclick="openPage('essay')">✍️ Essay</button>
-    <button onclick="openPage('profil')">👤 Profil</button>
-  </div>
+<div class="card" id="content"></div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.ready();
+<div class="menu">
+  <button class="active" onclick="openPage('lugat', this)">📘 Lug‘at</button>
+  <button onclick="openPage('reyting', this)">🏆 Reyting</button>
+</div>
 
-    if (tg.initDataUnsafe?.user) {
-      document.getElementById("user").innerText =
-        "Foydalanuvchi: " + tg.initDataUnsafe.user.first_name;
-    }
+<script>
+  const tg = window.Telegram.WebApp;
+  tg.ready();
 
-    const content = document.getElementById("content");
+  const userName =
+    tg.initDataUnsafe?.user?.first_name || "Guest";
 
-    function openPage(page) {
-      document.querySelectorAll(".menu button").forEach(b => b.classList.remove("active"));
-      event.target.classList.add("active");
+  document.getElementById("user").innerText =
+    "Foydalanuvchi: " + userName;
 
-      if (page === "lugat") {
-        content.innerHTML = `
-          <h3>📘 Lug‘at</h3>
-          <input id="word" placeholder="So‘z kiriting...">
-          <button onclick="searchWord()">Qidirish</button>
-          <div id="result" style="margin-top:12px;"></div>
-        `;
-      }
+  let points = 0;
+  const pointsEl = document.getElementById("points");
+  const content = document.getElementById("content");
 
-      if (page === "test") {
-        content.innerHTML = `
-          <h3>📝 Test</h3>
-          <p>Testlar, ball va reyting shu yerda bo‘ladi.</p>
-        `;
-      }
+  function addPoint() {
+    points++;
+    pointsEl.innerText = points;
+  }
 
-      if (page === "essay") {
-        content.innerHTML = `
-          <h3>✍️ Essay</h3>
-          <p>Essay yozish va AI baholash (keyingi bosqich).</p>
-        `;
-      }
+  function openPage(page, btn) {
+    document.querySelectorAll(".menu button")
+      .forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
 
-      if (page === "profil") {
-        content.innerHTML = `
-          <h3>👤 Profil</h3>
-          <p>Ballar, reyting, premium va sozlamalar.</p>
-        `;
-      }
-    }
-
-    function searchWord() {
-      const word = document.getElementById("word").value.trim();
-      const result = document.getElementById("result");
-
-      if (!word) {
-        result.innerHTML = "❗ So‘z kiriting";
-        return;
-      }
-
-      result.innerHTML = `
-        <p><b>So‘z:</b> ${word}</p>
-        <p><b>Ma’nosi:</b> (keyin API ulanadi)</p>
-        <p><b>Sinonim:</b> —</p>
-        <p><b>Antonim:</b> —</p>
+    if (page === "lugat") {
+      content.innerHTML = `
+        <h3>📘 Lug‘at</h3>
+        <input id="word" placeholder="So‘z kiriting...">
+        <button onclick="searchWord()">Qidirish</button>
+        <div id="result" style="margin-top:12px;"></div>
       `;
     }
 
-    openPage("lugat");
-  </script>
+    if (page === "reyting") {
+      content.innerHTML = `
+        <h3>🏆 Reyting</h3>
+        <ol>
+          <li>Ali — 120 ball → <b>20% Premium</b></li>
+          <li>Vali — 95 ball → <b>15% Premium</b></li>
+          <li>Sami — 80 ball → <b>10% Premium</b></li>
+        </ol>
+        <p style="margin-top:10px;">
+          Sizning ballingiz: <b>${points}</b>
+        </p>
+      `;
+    }
+  }
+
+  function searchWord() {
+    const word = document.getElementById("word").value.trim();
+    const result = document.getElementById("result");
+
+    if (!word) {
+      result.innerHTML = "❗ So‘z kiriting";
+      return;
+    }
+
+    addPoint();
+
+    result.innerHTML = `
+      <p><b>So‘z:</b> ${word}</p>
+      <p><b>Ma’nosi:</b> Namuna ma’no (keyin API ulanadi)</p>
+      <p><b>Sinonim:</b> —</p>
+      <p><b>Antonim:</b> —</p>
+      <p style="color:#22c55e;">+1 ball</p>
+    `;
+  }
+
+  openPage("lugat", document.querySelector(".menu button"));
+</script>
+
 </body>
 </html>
