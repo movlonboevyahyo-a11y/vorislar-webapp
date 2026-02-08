@@ -1,132 +1,213 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vorislar lug‘ati</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vorislar lug‘ati – Demo</title>
 
 <style>
-body{font-family:Arial;background:#f4f4f4;margin:0;padding-bottom:70px}
-section{background:#fff;margin:12px;padding:12px;border-radius:8px}
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --accent:#3b82f6;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI}
+body{margin:0;background:var(--bg);color:var(--text)}
 .hidden{display:none}
-button{padding:10px;margin-top:10px}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#ddd}
-nav button{flex:1;border:none;background:#eee}
-.card{margin:10px 0}
+.page{padding:16px 16px 80px}
+.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:16px}
+h1,h2,h3{margin:0 0 8px}
+button{
+  background:var(--accent);
+  color:white;
+  border:none;
+  border-radius:12px;
+  padding:12px;
+  font-size:16px;
+  width:100%;
+}
+.small{font-size:13px;color:var(--muted)}
+.badge{background:#1e40af;padding:4px 8px;border-radius:8px;font-size:12px}
+input,textarea{
+  width:100%;background:#020617;color:white;
+  border:1px solid #1f2937;border-radius:12px;
+  padding:12px;font-size:15px
+}
+textarea{min-height:120px}
+
+/* bottom nav */
+.nav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#020617;border-top:1px solid #1f2937;
+  display:flex
+}
+.nav button{
+  flex:1;background:none;border-radius:0;
+  padding:10px;font-size:13px;color:var(--muted)
+}
+.nav button.active{color:white}
+
+/* list */
+.list-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid #1f2937
+}
+.avatar{
+  width:48px;height:48px;border-radius:50%;
+  background:#1e293b;display:flex;
+  align-items:center;justify-content:center
+}
 </style>
 </head>
 
 <body>
 
-<!-- TEST -->
-<section id="tests">
-<h2>📘 Testlar</h2>
-<select id="blockSelect"></select>
-<div id="testBox"></div>
-<button onclick="finishTest()">Testni yakunlash</button>
-</section>
+<!-- ASOSIY -->
+<div id="home" class="page">
+  <div class="card" style="background:linear-gradient(135deg,#2563eb,#1e3a8a)">
+    <h2>Ona tili xazinasidan izlang</h2>
+    <input placeholder="So‘zni qidiring...">
+  </div>
+
+  <div class="card">
+    <div style="display:flex;gap:8px">
+      <span class="badge">Barchasi</span>
+      <span class="badge">Sinonimlar</span>
+      <span class="badge">Antonimlar</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Kun so‘zi</h3>
+    <b id="dailyWord">Ma’rifat</b>
+    <p class="small">Bilim va madaniyatni yoyish.</p>
+  </div>
+</div>
+
+<!-- KATALOG -->
+<div id="catalog" class="page hidden">
+  <h2>Mavzular katalogi</h2>
+
+  <div class="card">
+    <h3>Grammatika</h3>
+    <p class="small">45 ta test</p>
+    <button onclick="demo()">Boshlash</button>
+  </div>
+
+  <div class="card">
+    <h3>Ilmiy matn</h3>
+    <p class="small">12 ta matn</p>
+    <button onclick="demo()">Boshlash</button>
+  </div>
+
+  <div class="card">
+    <h3>Badiiy matn</h3>
+    <p class="small">18 ta matn</p>
+    <button onclick="demo()">Boshlash</button>
+  </div>
+
+  <div class="card">
+    <h3>Imlo va lug‘at boyligi</h3>
+    <button onclick="demo()">Ko‘rish</button>
+  </div>
+</div>
 
 <!-- ESSAY -->
-<section id="essay" class="hidden">
-<h2>✍️ Essay</h2>
-<textarea id="essayText" rows="6" style="width:100%" placeholder="Essay yozing..."></textarea>
-<button onclick="sendEssay()">Essay yuborish</button>
-</section>
+<div id="essay" class="page hidden">
+  <h2>AI Essay tekshiruvi</h2>
+
+  <div class="card">
+    <textarea id="essayText" placeholder="Inshoni shu yerga yozing..."></textarea>
+    <p class="small"><span id="count">0</span> / 500 so‘z</p>
+    <button onclick="checkEssay()">AI bilan tahlil qilish</button>
+  </div>
+
+  <div id="essayResult" class="card hidden">
+    <h3>Natija: 85 / 100</h3>
+    <p>Grammatika: 4 ta xato</p>
+    <p>Uslub: A’lo</p>
+  </div>
+</div>
+
+<!-- TEST -->
+<div id="test" class="page hidden">
+  <h2>Testlar</h2>
+  <div class="card">
+    <select style="width:100%;padding:12px;border-radius:12px">
+      <option>— Blok tanlang —</option>
+      <option>1-blok</option>
+      <option>2-blok</option>
+    </select>
+    <button style="margin-top:12px" onclick="demo()">Testni yakunlash</button>
+  </div>
+</div>
 
 <!-- PROFIL -->
-<section id="profile" class="hidden">
-<h2>👤 Profil</h2>
-<p>Holat: <b id="status"></b></p>
-<p>🎯 Ball: <span id="scoreView">0</span></p>
-<p>📘 Bepul test bloklari: 1–5</p>
-<p>✍️ Essay: kuniga 1 ta</p>
-</section>
+<div id="profile" class="page hidden">
+  <div class="card" style="text-align:center">
+    <div class="avatar" style="margin:auto">👤</div>
+    <h3>Azizbek Toirov</h3>
+    <p class="small">Sertifikat darajasi: B2</p>
+    <span class="badge">ID: 12345</span>
+  </div>
 
-<!-- PASTKI MENU -->
-<nav>
-<button onclick="openTab('tests')">🏠 Testlar</button>
-<button onclick="openTab('essay')">✍️ Essay</button>
-<button onclick="openTab('profile')">⭐ Premium</button>
-</nav>
+  <div class="card">
+    <h3>Premiumga o‘ting</h3>
+    <p class="small">Cheksiz test va esse</p>
+    <button>Sotib olish</button>
+  </div>
+
+  <div class="card">
+    <p>Profilni tahrirlash</p>
+    <p>Do‘stlarni taklif qilish</p>
+    <p>Ilova haqida</p>
+    <p>Yordam</p>
+    <p style="color:#ef4444">Chiqish</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="active" onclick="show('home',this)">Asosiy</button>
+  <button onclick="show('catalog',this)">Katalog</button>
+  <button onclick="show('test',this)">Testlar</button>
+  <button onclick="show('essay',this)">Essay</button>
+  <button onclick="show('profile',this)">Profil</button>
+</div>
 
 <script>
-// ===== SOZLAMALAR =====
-let isPremium = true; // false qilsang oddiy user bo‘ladi
-let score = Number(localStorage.getItem("score") || 0);
-let essayUsed = localStorage.getItem("essayUsed");
+const pages=["home","catalog","test","essay","profile"];
 
-// ===== TEST MAʼLUMOTLARI (100 TA) =====
-let tests = {};
-for(let b=1;b<=10;b++){
-  tests["Blok "+b] = [];
-  for(let i=1;i<=10;i++){
-    tests["Blok "+b].push({
-      q:`${b}.${i} Savol: Ot so‘z turkumi nimani bildiradi?`,
-      a:"Predmet",
-      b:"Harakat",
-      c:"Belgi",
-      d:"Miqdor",
-      correct:"a"
-    });
-  }
+function show(id,btn){
+  pages.forEach(p=>document.getElementById(p).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
 }
 
-// ===== SELECT =====
-const blockSelect=document.getElementById("blockSelect");
-blockSelect.innerHTML='<option value="">— Blok tanlang —</option>';
-Object.keys(tests).forEach((b,i)=>{
-  if(!isPremium && i>=5) return;
-  blockSelect.innerHTML+=`<option>${b}</option>`;
+function demo(){
+  alert("Demo versiya. Tez orada!");
+}
+
+const words=[
+"Ma’rifat","Ziyo","Istiqlol","Tafakkur","Adolat","Vatan","Til",
+"Madaniyat","Bunyodkor","Qadriyat","Ilm","Fazilat","Niyat",
+"Saodat","Taraqqiyot","Iroda","Mas’uliyat","Ong","Ma’naviyat",
+"Istiqbol","Barqarorlik","Hamjihatlik","Tinchlik","Adabiyot",
+"San’at","Fikr","Haqiqat","Bilim","Zehn","Uslub"
+];
+document.getElementById("dailyWord").innerText =
+  words[Math.floor(Math.random()*words.length)];
+
+document.getElementById("essayText").addEventListener("input",e=>{
+  document.getElementById("count").innerText=e.target.value.split(/\s+/).filter(Boolean).length;
 });
 
-// ===== TEST CHIQARISH =====
-blockSelect.onchange=()=>{
-  testBox.innerHTML="";
-  tests[blockSelect.value]?.forEach((t,i)=>{
-    testBox.innerHTML+=`
-    <div class="card">
-    <b>${t.q}</b><br>
-    <label><input type="radio" name="q${i}" value="a"> A) ${t.a}</label><br>
-    <label><input type="radio" name="q${i}" value="b"> B) ${t.b}</label><br>
-    <label><input type="radio" name="q${i}" value="c"> C) ${t.c}</label><br>
-    <label><input type="radio" name="q${i}" value="d"> D) ${t.d}</label>
-    </div>`;
-  });
-};
-
-// ===== TESTNI YAKUNLASH =====
-function finishTest(){
-  let s=0;
-  tests[blockSelect.value]?.forEach((t,i)=>{
-    let r=document.querySelector(`input[name="q${i}"]:checked`);
-    if(r && r.value===t.correct) s++;
-  });
-  score+=s;
-  localStorage.setItem("score",score);
-  scoreView.innerText=score;
-  alert("Yakunlandi! Ball: "+s);
-}
-
-// ===== ESSAY =====
-function sendEssay(){
-  if(!isPremium && essayUsed){
-    alert("Bugungi bepul essay limiti tugadi");
-    return;
-  }
-  essayUsed=true;
-  localStorage.setItem("essayUsed",1);
-  alert("Essay qabul qilindi ✅");
-  essayText.value="";
-}
-
-// ===== PROFIL =====
-scoreView.innerText=score;
-status.innerText=isPremium?"Premium ✅":"Oddiy ❌";
-
-// ===== TAB =====
-function openTab(id){
-  ["tests","essay","profile"].forEach(x=>document.getElementById(x).classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
+function checkEssay(){
+  document.getElementById("essayResult").classList.remove("hidden");
 }
 </script>
 
