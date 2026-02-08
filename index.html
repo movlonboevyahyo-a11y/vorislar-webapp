@@ -3,84 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vorislar lug‘ati – Demo</title>
+<title>Vorislar lug‘ati</title>
 
 <style>
 :root{
-  --bg:#f4f7ff;
+  --bg:#f3f6ff;
   --card:#ffffff;
-  --accent:#4f46e5;
+  --primary:#4f46e5;
+  --secondary:#0ea5e9;
+  --gold:#facc15;
   --text:#1e293b;
-  --muted:#6b7280;
+  --muted:#64748b;
 }
 *{box-sizing:border-box;font-family:Inter,system-ui}
 body{margin:0;background:var(--bg);color:var(--text)}
 .hidden{display:none}
-.page{padding:16px 16px 90px}
+.page{padding:16px 16px 95px}
+
+/* CARD */
 .card{
   background:var(--card);
-  border-radius:18px;
+  border-radius:20px;
   padding:16px;
   margin-bottom:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-h2,h3{margin:0 0 10px}
-input,textarea,select{
-  width:100%;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid #e5e7eb;
-  font-size:15px;
-}
-textarea{min-height:120px}
-
-/* Buttons */
-button{
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
   position:relative;
+}
+
+/* BUTTON */
+button{
   width:100%;
-  padding:14px 16px;
+  padding:14px;
   border:none;
   border-radius:16px;
-  background:linear-gradient(135deg,#4f46e5,#6366f1);
-  color:#fff;
-  font-size:15px;
+  background:linear-gradient(135deg,var(--primary),#6366f1);
+  color:white;
   font-weight:600;
-  cursor:pointer;
+  font-size:15px;
 }
 button:active{transform:scale(.97)}
 
-/* Stickers */
-.btn-sticker{
+/* STICKERS */
+.sticker{
   position:absolute;
-  top:-8px;
-  right:-8px;
+  top:-10px;right:-10px;
+  padding:6px 10px;
   font-size:11px;
   font-weight:700;
-  padding:4px 8px;
   border-radius:999px;
-  color:#fff;
+  color:white;
 }
 .new{background:#ef4444}
 .ai{background:linear-gradient(135deg,#6366f1,#8b5cf6)}
 .pro{background:linear-gradient(135deg,#facc15,#f59e0b);color:#78350f}
+.hot{background:#fb7185}
+.top{background:#22c55e}
 
-/* Nav */
-.nav{
-  position:fixed;
-  bottom:0;left:0;right:0;
-  background:#fff;
-  display:flex;
-  box-shadow:0 -8px 20px rgba(0,0,0,.08);
-}
-.nav button{
-  background:none;
-  color:var(--muted);
-  border-radius:0;
-  font-size:13px;
-}
-.nav button.active{color:var(--accent)}
-
-/* Badges */
+/* BADGE */
 .badge{
   display:inline-block;
   padding:6px 10px;
@@ -88,28 +67,70 @@ button:active{transform:scale(.97)}
   font-size:12px;
   background:#eef2ff;
   color:#3730a3;
+  margin-right:6px;
 }
-.avatar{
-  width:56px;height:56px;
-  border-radius:50%;
-  background:#e0e7ff;
+
+/* NAV */
+.nav{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:white;
+  display:flex;
+  box-shadow:0 -10px 25px rgba(0,0,0,.1);
+}
+.nav button{
+  background:none;
+  color:var(--muted);
+  font-size:12px;
+}
+.nav button.active{color:var(--primary)}
+
+/* INPUT */
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+}
+
+/* ICON BOX */
+.icon{
+  width:52px;height:52px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#e0e7ff,#c7d2fe);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:24px;
-  margin:auto;
+  font-size:26px;
 }
+
+/* PROFILE */
+.avatar{
+  width:70px;height:70px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  color:white;
+  margin:auto;
+  box-shadow:0 0 0 5px #eef2ff;
+}
+
 .small{font-size:13px;color:var(--muted)}
+.center{text-align:center}
 </style>
 </head>
 
 <body>
 
-<!-- ASOSIY -->
+<!-- HOME -->
 <div id="home" class="page">
   <div class="card" style="background:linear-gradient(135deg,#4f46e5,#6366f1);color:white">
-    <h2>Ona tili xazinasidan izlang</h2>
+    <h2>📘 Ona tili xazinasidan izlang</h2>
     <input placeholder="So‘zni qidiring...">
+    <span class="sticker hot">HOT</span>
   </div>
 
   <div class="card">
@@ -121,107 +142,97 @@ button:active{transform:scale(.97)}
   <div class="card">
     <h3>📌 Kun so‘zi</h3>
     <b id="dailyWord"></b>
-    <p class="small">So‘z boyligini oshirish uchun</p>
+    <p class="small">Har kuni avtomatik yangilanadi</p>
+    <span class="sticker new">NEW</span>
   </div>
 </div>
 
-<!-- KATALOG -->
+<!-- CATALOG -->
 <div id="catalog" class="page hidden">
   <h2>Mavzular katalogi</h2>
 
   <div class="card">
+    <div class="icon">🧩</div>
     <h3>Grammatika</h3>
     <p class="small">45 ta test</p>
     <button onclick="demo()">Boshlash</button>
   </div>
 
   <div class="card">
+    <div class="icon">🔬</div>
     <h3>Ilmiy matn</h3>
     <p class="small">12 ta matn</p>
     <button onclick="demo()">Boshlash</button>
   </div>
 
   <div class="card">
+    <div class="icon">📖</div>
     <h3>Badiiy matn</h3>
     <p class="small">18 ta matn</p>
     <button onclick="demo()">Boshlash</button>
   </div>
 
   <div class="card">
+    <div class="icon">📘</div>
     <h3>Imlo va lug‘at boyligi</h3>
     <button onclick="demo()">Ko‘rish</button>
   </div>
 </div>
 
-<!-- TEST -->
-<div id="test" class="page hidden">
-  <h2>📘 Testlar</h2>
-  <div class="card">
-    <select>
-      <option>— Blok tanlang —</option>
-      <option>1-blok</option>
-      <option>2-blok</option>
-    </select>
-    <button style="margin-top:12px" onclick="demo()">Testni yakunlash</button>
-    <span class="btn-sticker new">NEW</span>
-  </div>
-</div>
-
 <!-- ESSAY -->
 <div id="essay" class="page hidden">
-  <h2>✍️ Essay</h2>
+  <h2>✍️ AI Essay tekshiruvi</h2>
+
   <div class="card">
-    <textarea id="essayText" placeholder="Essay yozing..."></textarea>
+    <textarea id="essayText" placeholder="Inshoni shu yerga yozing..."></textarea>
     <p class="small"><span id="count">0</span> / 500 so‘z</p>
-    <button onclick="checkEssay()">AI bilan tekshirish
-      <span class="btn-sticker ai">AI</span>
-    </button>
+    <button onclick="checkEssay()">AI bilan tahlil qilish</button>
+    <span class="sticker ai">AI</span>
   </div>
 
   <div id="essayResult" class="card hidden">
     <h3>Natija: 85 / 100</h3>
-    <p>Grammatika: 4 ta xato</p>
-    <p>Uslub: A’lo</p>
+    <p>📌 Grammatika: 4 ta xato</p>
+    <p>✨ Uslub: A’lo</p>
+    <span class="sticker top">TOP</span>
   </div>
 </div>
 
-<!-- PROFIL -->
+<!-- PROFILE -->
 <div id="profile" class="page hidden">
-  <div class="card" style="text-align:center">
+  <div class="card center">
     <div class="avatar">👤</div>
     <h3>Azizbek Toirov</h3>
-    <p class="small">Daraja: B2</p>
+    <p class="small">Sertifikat darajasi: B2</p>
     <span class="badge">ID: 12345</span>
   </div>
 
   <div class="card">
     <h3>⭐ Premium</h3>
-    <p class="small">Cheksiz test va AI esse</p>
-    <button onclick="demo()">Premiumga o‘tish
-      <span class="btn-sticker pro">PRO</span>
-    </button>
+    <p class="small">Cheksiz test va AI imkoniyatlar</p>
+    <button onclick="demo()">Sotib olish</button>
+    <span class="sticker pro">PRO</span>
   </div>
 
   <div class="card">
-    <p>Profilni tahrirlash</p>
-    <p>Do‘stlarni taklif qilish</p>
-    <p>Ilova haqida</p>
-    <p>Yordam</p>
-    <p style="color:#ef4444">Chiqish</p>
+    <p>✏️ Profilni tahrirlash</p>
+    <p>👥 Do‘stlarni taklif qilish</p>
+    <p>ℹ️ Ilova haqida</p>
+    <p>🆘 Yordam</p>
+    <p style="color:#ef4444">🚪 Chiqish</p>
   </div>
 </div>
 
 <!-- NAV -->
 <div class="nav">
-  <button class="active" onclick="show('home',this)">🏠</button>
-  <button onclick="show('catalog',this)">📚</button>
-  <button onclick="show('test',this)">📘</button>
-  <button onclick="show('essay',this)">✍️</button>
-  <button onclick="show('profile',this)">👤</button>
+  <button class="active" onclick="show('home',this)">🏠<br>Asosiy</button>
+  <button onclick="show('catalog',this)">📚<br>Katalog</button>
+  <button onclick="show('essay',this)">✍️<br>Essay</button>
+  <button onclick="show('profile',this)">👤<br>Profil</button>
 </div>
 
 <script>
-const pages=["home","catalog","test","essay","profile"];
+const pages=["home","catalog","essay","profile"];
 function show(id,btn){
   pages.forEach(p=>document.getElementById(p).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
@@ -231,12 +242,11 @@ function show(id,btn){
 function demo(){alert("Demo versiya. Tez orada!");}
 
 const words=[
-"Ma’rifat","Ziyo","Tafakkur","Adolat","Vatan","Til",
-"Ilm","Madaniyat","Iroda","Mas’uliyat","Haqiqat",
-"Barkamol","Qadriyat","Saodat","Intilish","Shukr",
-"Sabr","Mehr","Fikr","Ong","Taraqqiyot","Ma’naviyat",
-"Istiqlol","San’at","Adabiyot","Bilim","Uslub","Zehn",
-"Barqarorlik","Hamjihatlik"
+"Ma’rifat","Ziyo","Tafakkur","Adolat","Vatan","Til","Ilm","Madaniyat",
+"Iroda","Mas’uliyat","Haqiqat","Barkamol","Qadriyat","Saodat",
+"Intilish","Shukr","Sabr","Mehr","Fikr","Ong","Taraqqiyot",
+"Ma’naviyat","Istiqlol","San’at","Adabiyot","Bilim","Uslub",
+"Zehn","Barqarorlik","Hamjihatlik"
 ];
 document.getElementById("dailyWord").innerText=
   words[Math.floor(Math.random()*words.length)];
@@ -251,4 +261,4 @@ function checkEssay(){
 </script>
 
 </body>
-</html>
+                   </html>
