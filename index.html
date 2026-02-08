@@ -1,80 +1,133 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <title>Ona tili va milliy sertifikat</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding-bottom: 80px;
-    }
-    h2 { padding: 15px }
-    .card {
-      background: #fff;
-      margin: 15px;
-      padding: 15px;
-      border-radius: 8px;
-    }
-    textarea, select {
-      width: 100%;
-      padding: 8px;
-    }
-    button {
-      padding: 8px 14px;
-      margin-top: 10px;
-    }
-    /* Pastki tugmalar */
-    .bottom {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #ffffff;
-      border-top: 1px solid #ccc;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vorislar lug‘ati</title>
+
+<style>
+body{font-family:Arial;background:#f4f4f4;margin:0;padding-bottom:70px}
+section{background:#fff;margin:12px;padding:12px;border-radius:8px}
+.hidden{display:none}
+button{padding:10px;margin-top:10px}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#ddd}
+nav button{flex:1;border:none;background:#eee}
+.card{margin:10px 0}
+</style>
 </head>
+
 <body>
 
-<!-- TESTLAR -->
+<!-- TEST -->
+<section id="tests">
 <h2>📘 Testlar</h2>
-<div id="tests-container"></div>
+<select id="blockSelect"></select>
+<div id="testBox"></div>
+<button onclick="finishTest()">Testni yakunlash</button>
+</section>
 
 <!-- ESSAY -->
+<section id="essay" class="hidden">
 <h2>✍️ Essay</h2>
-<div class="card">
-  <textarea id="essayText" rows="6" placeholder="Essay yozing..."></textarea>
-  <button onclick="submitEssay()">Essay yuborish</button>
-</div>
+<textarea id="essayText" rows="6" style="width:100%" placeholder="Essay yozing..."></textarea>
+<button onclick="sendEssay()">Essay yuborish</button>
+</section>
 
 <!-- PROFIL -->
+<section id="profile" class="hidden">
 <h2>👤 Profil</h2>
-<div class="card">
-  <p><b>Holat:</b> <span id="premiumStatus">Bepul</span></p>
-  <p>📘 Testlar: 1–5 bepul</p>
-  <p>✍️ Essay: kuniga 1 ta bepul</p>
-</div>
+<p>Holat: <b id="status"></b></p>
+<p>🎯 Ball: <span id="scoreView">0</span></p>
+<p>📘 Bepul test bloklari: 1–5</p>
+<p>✍️ Essay: kuniga 1 ta</p>
+</section>
 
-<!-- PASTKI TUGMALAR -->
-<div class="bottom">
-  <button onclick="window.scrollTo(0,0)">🏠 Testlar</button>
-  <button onclick="alert('Essay yuqorida')">✍️ Essay</button>
-  <button onclick="setPremium()">⭐ Premium</button>
-</div>
-
-<!-- SCRIPTlar -->
-<script src="./premium.js"></script>
-<script src="./tests.js"></script>
+<!-- PASTKI MENU -->
+<nav>
+<button onclick="openTab('tests')">🏠 Testlar</button>
+<button onclick="openTab('essay')">✍️ Essay</button>
+<button onclick="openTab('profile')">⭐ Premium</button>
+</nav>
 
 <script>
-  if (isPremium()) {
-    document.getElementById("premiumStatus").innerText = "Premium ✅";
+// ===== SOZLAMALAR =====
+let isPremium = true; // false qilsang oddiy user bo‘ladi
+let score = Number(localStorage.getItem("score") || 0);
+let essayUsed = localStorage.getItem("essayUsed");
+
+// ===== TEST MAʼLUMOTLARI (100 TA) =====
+let tests = {};
+for(let b=1;b<=10;b++){
+  tests["Blok "+b] = [];
+  for(let i=1;i<=10;i++){
+    tests["Blok "+b].push({
+      q:`${b}.${i} Savol: Ot so‘z turkumi nimani bildiradi?`,
+      a:"Predmet",
+      b:"Harakat",
+      c:"Belgi",
+      d:"Miqdor",
+      correct:"a"
+    });
   }
+}
+
+// ===== SELECT =====
+const blockSelect=document.getElementById("blockSelect");
+blockSelect.innerHTML='<option value="">— Blok tanlang —</option>';
+Object.keys(tests).forEach((b,i)=>{
+  if(!isPremium && i>=5) return;
+  blockSelect.innerHTML+=`<option>${b}</option>`;
+});
+
+// ===== TEST CHIQARISH =====
+blockSelect.onchange=()=>{
+  testBox.innerHTML="";
+  tests[blockSelect.value]?.forEach((t,i)=>{
+    testBox.innerHTML+=`
+    <div class="card">
+    <b>${t.q}</b><br>
+    <label><input type="radio" name="q${i}" value="a"> A) ${t.a}</label><br>
+    <label><input type="radio" name="q${i}" value="b"> B) ${t.b}</label><br>
+    <label><input type="radio" name="q${i}" value="c"> C) ${t.c}</label><br>
+    <label><input type="radio" name="q${i}" value="d"> D) ${t.d}</label>
+    </div>`;
+  });
+};
+
+// ===== TESTNI YAKUNLASH =====
+function finishTest(){
+  let s=0;
+  tests[blockSelect.value]?.forEach((t,i)=>{
+    let r=document.querySelector(`input[name="q${i}"]:checked`);
+    if(r && r.value===t.correct) s++;
+  });
+  score+=s;
+  localStorage.setItem("score",score);
+  scoreView.innerText=score;
+  alert("Yakunlandi! Ball: "+s);
+}
+
+// ===== ESSAY =====
+function sendEssay(){
+  if(!isPremium && essayUsed){
+    alert("Bugungi bepul essay limiti tugadi");
+    return;
+  }
+  essayUsed=true;
+  localStorage.setItem("essayUsed",1);
+  alert("Essay qabul qilindi ✅");
+  essayText.value="";
+}
+
+// ===== PROFIL =====
+scoreView.innerText=score;
+status.innerText=isPremium?"Premium ✅":"Oddiy ❌";
+
+// ===== TAB =====
+function openTab(id){
+  ["tests","essay","profile"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
 </script>
 
 </body>
