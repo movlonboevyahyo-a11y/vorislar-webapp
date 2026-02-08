@@ -1,65 +1,105 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vorislar lug‘ati – Demo</title>
 
 <style>
 :root{
-  --bg:#0f172a;
-  --card:#111827;
-  --accent:#3b82f6;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-  --green:#22c55e;
+  --bg:#f4f7ff;
+  --card:#ffffff;
+  --accent:#4f46e5;
+  --text:#1e293b;
+  --muted:#6b7280;
 }
-*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI}
+*{box-sizing:border-box;font-family:Inter,system-ui}
 body{margin:0;background:var(--bg);color:var(--text)}
 .hidden{display:none}
-.page{padding:16px 16px 80px}
-.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:16px}
-h1,h2,h3{margin:0 0 8px}
-button{
-  background:var(--accent);
-  color:white;
-  border:none;
-  border-radius:12px;
-  padding:12px;
-  font-size:16px;
-  width:100%;
+.page{padding:16px 16px 90px}
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
-.small{font-size:13px;color:var(--muted)}
-.badge{background:#1e40af;padding:4px 8px;border-radius:8px;font-size:12px}
-input,textarea{
-  width:100%;background:#020617;color:white;
-  border:1px solid #1f2937;border-radius:12px;
-  padding:12px;font-size:15px
+h2,h3{margin:0 0 10px}
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  font-size:15px;
 }
 textarea{min-height:120px}
 
-/* bottom nav */
+/* Buttons */
+button{
+  position:relative;
+  width:100%;
+  padding:14px 16px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,#4f46e5,#6366f1);
+  color:#fff;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+}
+button:active{transform:scale(.97)}
+
+/* Stickers */
+.btn-sticker{
+  position:absolute;
+  top:-8px;
+  right:-8px;
+  font-size:11px;
+  font-weight:700;
+  padding:4px 8px;
+  border-radius:999px;
+  color:#fff;
+}
+.new{background:#ef4444}
+.ai{background:linear-gradient(135deg,#6366f1,#8b5cf6)}
+.pro{background:linear-gradient(135deg,#facc15,#f59e0b);color:#78350f}
+
+/* Nav */
 .nav{
-  position:fixed;bottom:0;left:0;right:0;
-  background:#020617;border-top:1px solid #1f2937;
-  display:flex
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:#fff;
+  display:flex;
+  box-shadow:0 -8px 20px rgba(0,0,0,.08);
 }
 .nav button{
-  flex:1;background:none;border-radius:0;
-  padding:10px;font-size:13px;color:var(--muted)
+  background:none;
+  color:var(--muted);
+  border-radius:0;
+  font-size:13px;
 }
-.nav button.active{color:white}
+.nav button.active{color:var(--accent)}
 
-/* list */
-.list-item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:10px 0;border-bottom:1px solid #1f2937
+/* Badges */
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  background:#eef2ff;
+  color:#3730a3;
 }
 .avatar{
-  width:48px;height:48px;border-radius:50%;
-  background:#1e293b;display:flex;
-  align-items:center;justify-content:center
+  width:56px;height:56px;
+  border-radius:50%;
+  background:#e0e7ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  margin:auto;
 }
+.small{font-size:13px;color:var(--muted)}
 </style>
 </head>
 
@@ -67,23 +107,21 @@ textarea{min-height:120px}
 
 <!-- ASOSIY -->
 <div id="home" class="page">
-  <div class="card" style="background:linear-gradient(135deg,#2563eb,#1e3a8a)">
+  <div class="card" style="background:linear-gradient(135deg,#4f46e5,#6366f1);color:white">
     <h2>Ona tili xazinasidan izlang</h2>
     <input placeholder="So‘zni qidiring...">
   </div>
 
   <div class="card">
-    <div style="display:flex;gap:8px">
-      <span class="badge">Barchasi</span>
-      <span class="badge">Sinonimlar</span>
-      <span class="badge">Antonimlar</span>
-    </div>
+    <span class="badge">Barchasi</span>
+    <span class="badge">Sinonim</span>
+    <span class="badge">Antonim</span>
   </div>
 
   <div class="card">
-    <h3>Kun so‘zi</h3>
-    <b id="dailyWord">Ma’rifat</b>
-    <p class="small">Bilim va madaniyatni yoyish.</p>
+    <h3>📌 Kun so‘zi</h3>
+    <b id="dailyWord"></b>
+    <p class="small">So‘z boyligini oshirish uchun</p>
   </div>
 </div>
 
@@ -115,14 +153,29 @@ textarea{min-height:120px}
   </div>
 </div>
 
+<!-- TEST -->
+<div id="test" class="page hidden">
+  <h2>📘 Testlar</h2>
+  <div class="card">
+    <select>
+      <option>— Blok tanlang —</option>
+      <option>1-blok</option>
+      <option>2-blok</option>
+    </select>
+    <button style="margin-top:12px" onclick="demo()">Testni yakunlash</button>
+    <span class="btn-sticker new">NEW</span>
+  </div>
+</div>
+
 <!-- ESSAY -->
 <div id="essay" class="page hidden">
-  <h2>AI Essay tekshiruvi</h2>
-
+  <h2>✍️ Essay</h2>
   <div class="card">
-    <textarea id="essayText" placeholder="Inshoni shu yerga yozing..."></textarea>
+    <textarea id="essayText" placeholder="Essay yozing..."></textarea>
     <p class="small"><span id="count">0</span> / 500 so‘z</p>
-    <button onclick="checkEssay()">AI bilan tahlil qilish</button>
+    <button onclick="checkEssay()">AI bilan tekshirish
+      <span class="btn-sticker ai">AI</span>
+    </button>
   </div>
 
   <div id="essayResult" class="card hidden">
@@ -132,32 +185,21 @@ textarea{min-height:120px}
   </div>
 </div>
 
-<!-- TEST -->
-<div id="test" class="page hidden">
-  <h2>Testlar</h2>
-  <div class="card">
-    <select style="width:100%;padding:12px;border-radius:12px">
-      <option>— Blok tanlang —</option>
-      <option>1-blok</option>
-      <option>2-blok</option>
-    </select>
-    <button style="margin-top:12px" onclick="demo()">Testni yakunlash</button>
-  </div>
-</div>
-
 <!-- PROFIL -->
 <div id="profile" class="page hidden">
   <div class="card" style="text-align:center">
-    <div class="avatar" style="margin:auto">👤</div>
+    <div class="avatar">👤</div>
     <h3>Azizbek Toirov</h3>
-    <p class="small">Sertifikat darajasi: B2</p>
+    <p class="small">Daraja: B2</p>
     <span class="badge">ID: 12345</span>
   </div>
 
   <div class="card">
-    <h3>Premiumga o‘ting</h3>
-    <p class="small">Cheksiz test va esse</p>
-    <button>Sotib olish</button>
+    <h3>⭐ Premium</h3>
+    <p class="small">Cheksiz test va AI esse</p>
+    <button onclick="demo()">Premiumga o‘tish
+      <span class="btn-sticker pro">PRO</span>
+    </button>
   </div>
 
   <div class="card">
@@ -171,41 +213,38 @@ textarea{min-height:120px}
 
 <!-- NAV -->
 <div class="nav">
-  <button class="active" onclick="show('home',this)">Asosiy</button>
-  <button onclick="show('catalog',this)">Katalog</button>
-  <button onclick="show('test',this)">Testlar</button>
-  <button onclick="show('essay',this)">Essay</button>
-  <button onclick="show('profile',this)">Profil</button>
+  <button class="active" onclick="show('home',this)">🏠</button>
+  <button onclick="show('catalog',this)">📚</button>
+  <button onclick="show('test',this)">📘</button>
+  <button onclick="show('essay',this)">✍️</button>
+  <button onclick="show('profile',this)">👤</button>
 </div>
 
 <script>
 const pages=["home","catalog","test","essay","profile"];
-
 function show(id,btn){
   pages.forEach(p=>document.getElementById(p).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
   document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
 }
-
-function demo(){
-  alert("Demo versiya. Tez orada!");
-}
+function demo(){alert("Demo versiya. Tez orada!");}
 
 const words=[
-"Ma’rifat","Ziyo","Istiqlol","Tafakkur","Adolat","Vatan","Til",
-"Madaniyat","Bunyodkor","Qadriyat","Ilm","Fazilat","Niyat",
-"Saodat","Taraqqiyot","Iroda","Mas’uliyat","Ong","Ma’naviyat",
-"Istiqbol","Barqarorlik","Hamjihatlik","Tinchlik","Adabiyot",
-"San’at","Fikr","Haqiqat","Bilim","Zehn","Uslub"
+"Ma’rifat","Ziyo","Tafakkur","Adolat","Vatan","Til",
+"Ilm","Madaniyat","Iroda","Mas’uliyat","Haqiqat",
+"Barkamol","Qadriyat","Saodat","Intilish","Shukr",
+"Sabr","Mehr","Fikr","Ong","Taraqqiyot","Ma’naviyat",
+"Istiqlol","San’at","Adabiyot","Bilim","Uslub","Zehn",
+"Barqarorlik","Hamjihatlik"
 ];
-document.getElementById("dailyWord").innerText =
+document.getElementById("dailyWord").innerText=
   words[Math.floor(Math.random()*words.length)];
 
 document.getElementById("essayText").addEventListener("input",e=>{
-  document.getElementById("count").innerText=e.target.value.split(/\s+/).filter(Boolean).length;
+  document.getElementById("count").innerText=
+    e.target.value.split(/\s+/).filter(Boolean).length;
 });
-
 function checkEssay(){
   document.getElementById("essayResult").classList.remove("hidden");
 }
