@@ -1,130 +1,39 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Milliy Sertifikat</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
-}
-
-header {
-  background: #020617;
-  padding: 14px;
-  display: flex;
-  justify-content: space-around;
-}
-
-header button {
-  background: none;
-  border: none;
-  color: #e5e7eb;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-header button.active {
-  color: #38bdf8;
-}
-
-.section {
-  display: none;
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-}
-
-.section.active {
-  display: block;
-}
-
-.card {
-  background: #020617;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.option {
-  border: 1px solid #334155;
-  border-radius: 8px;
-  padding: 10px;
-  margin-top: 8px;
-  cursor: pointer;
-}
-
-.option:hover { background: #1e293b; }
-.correct { background: #166534; }
-.wrong { background: #7f1d1d; }
-
-select, textarea {
-  width: 100%;
-  padding: 10px;
-  background: #020617;
-  color: #e5e7eb;
-  border-radius: 8px;
-  border: none;
-}
-
-textarea { height: 200px; }
-
-button.main {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  background: #22c55e;
-  font-weight: bold;
-  cursor: pointer;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Ona tili va milliy sertifikat</title>
+  <style>
+    body { font-family: Arial; background:#f4f4f4; margin:0; padding:20px }
+    .card { background:#fff; padding:15px; margin-bottom:15px; border-radius:6px }
+    .bottom { position:fixed; bottom:0; left:0; right:0; background:#fff; padding:10px; border-top:1px solid #ccc }
+    button { padding:8px 12px }
+    select, textarea { width:100%; padding:6px }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <button class="active" onclick="openSec('home',this)">🏠 Bosh</button>
-  <button onclick="openSec('tests',this)">📝 Testlar</button>
-  <button onclick="openSec('essays',this)">✍️ Esselar</button>
-  <button onclick="openSec('profile',this)">👤 Profil</button>
-</header>
+<h2>📘 Testlar</h2>
+<div id="tests-container"></div>
 
-<div id="home" class="section active">
-  <div class="card">
-    <h2>Milliy sertifikat tayyorlov</h2>
-    <p>Testlar va esselar orqali tayyorlanish</p>
-  </div>
+<h2>✍️ Essay</h2>
+<div class="card">
+  <textarea id="essayText" rows="5" placeholder="Essay yozing..."></textarea><br><br>
+  <button onclick="submitEssay()">Essay yuborish</button>
 </div>
 
-<div id="tests" class="section">
-  <div id="tests-container"></div>
+<!-- PASTKI TUGMALAR -->
+<div class="bottom">
+  Premium holat: <b id="premiumStatus">Bepul</b>
+  <button style="float:right" onclick="setPremium()">Premium olish</button>
 </div>
 
-<div id="essays" class="section">
-  <div id="essays-container"></div>
-</div>
-
-<div id="profile" class="section">
-  <div class="card">
-    Test ball: <b><span id="testScore">0</span></b><br>
-    Essay ball: <b><span id="essayScore">0</span></b>
-  </div>
-</div>
-
-<script src="essays.js"></script>
-<script src="tests.js"></script>
+<script src="./premium.js"></script>
+<script src="./tests.js"></script>
 
 <script>
-function openSec(id, btn){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('header button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+if (isPremium()) {
+  document.getElementById("premiumStatus").innerText = "Premium ✅";
 }
 </script>
 
