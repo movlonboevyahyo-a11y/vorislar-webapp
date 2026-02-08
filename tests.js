@@ -3,172 +3,155 @@ document.addEventListener("DOMContentLoaded", function () {
 const testBlocks = [
 /* ================= 1-BLOK ================= */
 {
-id: 1,
-title: "1-blok: Badiiy matn tahlili",
-tests: [
-{q:"Asar nomi orqali qanday badiiy maqsad ifodalangan?",o:["Qahramon kasbi","Tasodif","Muallif fikri","Kayfiyatni umumlashtirish"],c:3},
-{q:"Doktor obraziga xos jihatni toping.",o:["Shoshqoloq","Sovuqqon","Mas’uliyatsiz","Qo‘rqoq"],c:1},
-{q:"Mayor obrazi nimasi bilan ajralib turadi?",o:["Sabr","Muomalaga qarab munosabat","Mehr","Halollik"],c:1},
-{q:"[2] gapda qaysi uslubiy ma’no bor?",o:["Achinish","Kinoya","Quvonch","Hayrat"],c:1},
-{q:"Asardagi keskinlik nimadan kelib chiqadi?",o:["Pul","Og‘riq","Tahdid","Kasb"],c:2},
-{q:"Doktorning javobi nimani bildiradi?",o:["Rahm","Istehzo","Qo‘rquv","Beparvolik"],c:1},
-{q:"Asar janri qaysi?",o:["Roman","Qissa","Hikoya","Drama"],c:2},
-{q:"Mayorning oxirgi gapi qanday ohangda?",o:["Samimiy","Keskin","Kinoyali","Beg‘am"],c:2},
-{q:"Badiiy matnda muallif nimani ochgan?",o:["Kasb","Jamiyat","Xarakter","Tarix"],c:2},
-{q:"Asar voqealari qayerda kechadi?",o:["Uyda","Ko‘chada","Doktor xonasida","Maydonda"],c:2}
+id:1,
+title:"1-blok: Ot",
+tests:[
+{q:"Ot qanday so‘z turkumi?",o:["Predmet nomini bildiradi","Harakatni bildiradi","Belgi bildiradi","Miqdorni bildiradi"],c:0},
+{q:"Qaysi so‘z ot?",o:["Yugurdi","Kitob","Chiroyli","Tez"],c:1},
+{q:"Shaxs nomi bildirgan ot?",o:["Shahar","O‘qituvchi","Daraxt","Kitob"],c:1},
+{q:"Jamlovchi ot qaysi?",o:["Yoshlar","Kitoblar","Uylar","Bolalar"],c:0},
+{q:"Otning so‘roqlari?",o:["Qanday?","Qancha?","Kim? Nima?","Qayerda?"],c:2},
+{q:"Mavhum ot qaysi?",o:["Baxt","Stol","Qalam","Uy"],c:0},
+{q:"An’anaviy ot qaysi?",o:["Daraxt","Yugurish","Chiroyli","Tez"],c:0},
+{q:"Ko‘plik qo‘shimchasi?",o:["-ni","-da","-lar","-ning"],c:2},
+{q:"Ot yasovchi qo‘shimcha?",o:["-chi","-roq","-gina","-day"],c:0},
+{q:"Qaysi gapda ot bor?",o:["U yugurdi","Kitob stol ustida","U chiroyli","Tez keldi"],c:1}
 ]
 },
 
 /* ================= 2-BLOK ================= */
 {
-id: 2,
-title: "2-blok: Ot",
-tests: [
-{q:"Ot nimani bildiradi?",o:["Harakat","Belgi","Predmet","Holat"],c:2},
-{q:"Qaysi so‘z ot?",o:["Yugurdi","Chiroyli","Kitob","Tez"],c:2},
-{q:"Mavhum otni toping.",o:["Stol","Baxt","Qalam","Uy"],c:1},
-{q:"Aniq otni toping.",o:["Sevgi","Baxt","Do‘stlik","Daraxt"],c:3},
-{q:"Ko‘plik qo‘shimchasi qaysi?",o:["-ni","-lar","-da","-ga"],c:1},
-{q:"Egalik qo‘shimchasi qaysi?",o:["-ning","-im","-dan","-lar"],c:1},
-{q:"Ot qaysi savolga javob bo‘ladi?",o:["Qanday?","Qachon?","Kim? Nima?","Qayerda?"],c:2},
-{q:"Turdosh otni toping.",o:["Kitob","Kitobcha","Uy","Suv"],c:1},
-{q:"Otlarda nechta kelishik bor?",o:["5","6","7","8"],c:1},
-{q:"Ot qaysi gap bo‘lagi bo‘la oladi?",o:["Faqat ega","Faqat to‘ldiruvchi","Bir necha","Faqat kesim"],c:2}
+id:2,
+title:"2-blok: Fe’l",
+tests:[
+{q:"Fe’l nimani bildiradi?",o:["Predmet","Harakat","Belgi","Miqdor"],c:1},
+{q:"Qaysi fe’l?",o:["O‘qish","Kitob","Chiroyli","Uy"],c:0},
+{q:"Bo‘lishsiz fe’l qaysi?",o:["Bordi","Bormadi","Keladi","O‘qiydi"],c:1},
+{q:"Fe’lning so‘roqlari?",o:["Kim?","Nima?","Nima qildi?","Qanday?"],c:2},
+{q:"Buyruq-istak fe’li?",o:["Bor","Boradi","Borgan","Borsa"],c:0},
+{q:"O‘tgan zamon fe’li?",o:["Boradi","Bordi","Bor","Borsin"],c:1},
+{q:"Hozirgi zamon fe’li?",o:["O‘qidi","O‘qiyapti","O‘qir","O‘qisin"],c:1},
+{q:"Kelasi zamon fe’li?",o:["Boradi","Bordi","Borgan","Bor"],c:0},
+{q:"Fe’l yasovchi qo‘shimcha?",o:["-la","-chi","-kor","-zor"],c:0},
+{q:"Qaysi gapda fe’l bor?",o:["Kitob stol ustida","U o‘qiyapti","Uy katta","Bugun issiq"],c:1}
 ]
 },
 
 /* ================= 3-BLOK ================= */
 {
-id: 3,
-title: "3-blok: Fe’l",
-tests: [
-{q:"Fe’l nimani bildiradi?",o:["Predmet","Belgi","Harakat","Miqdor"],c:2},
-{q:"O‘tgan zamon fe’lini toping.",o:["O‘qiyapti","O‘qir","O‘qidi","O‘qimoq"],c:2},
-{q:"Buyruq-istak mayli qaysi?",o:["O‘qidi","O‘qir","O‘qi!","O‘qimoq"],c:2},
-{q:"Bo‘lishsiz fe’lni toping.",o:["Bordi","Bormadi","Boradi","Bor"],c:1},
-{q:"Fe’lning boshlang‘ich shakli?",o:["O‘qidi","O‘qiydi","O‘qimoq","O‘qir"],c:2},
-{q:"Majhul nisbat qo‘shimchasi?",o:["-di","-il","-ar","-moq"],c:1},
-{q:"Fe’l gapda ko‘pincha qaysi bo‘lak?",o:["Ega","Kesim","Aniqlovchi","Hol"],c:1},
-{q:"Hozirgi zamon qaysi?",o:["-di","-yapti","-ar","-moq"],c:1},
-{q:"Shaxs-son qo‘shimchasi?",o:["-ni","-da","-man","-lar"],c:2},
-{q:"Fe’l nisbatlari nechta?",o:["3","4","5","6"],c:2}
+id:3,
+title:"3-blok: Sifat",
+tests:[
+{q:"Sifat nimani bildiradi?",o:["Harakat","Belgi","Predmet","Miqdor"],c:1},
+{q:"Qaysi sifat?",o:["Yugurdi","Katta","Kitob","Bor"],c:1},
+{q:"Asliy sifat?",o:["Oq","Oqish","Oppoq","Oqartir"],c:0},
+{q:"Nisbiy sifat?",o:["Yozgi","Oppoq","Yaxshi","Tez"],c:0},
+{q:"Sifatning so‘roqlari?",o:["Kim?","Qanday?","Nima qildi?","Qayer?"],c:1},
+{q:"Orttirma daraja?",o:["Katta","Kattaroq","Eng katta","Kattagina"],c:2},
+{q:"Qiyosiy daraja?",o:["Yaxshi","Yaxshiroq","Eng yaxshi","Yaxshigina"],c:1},
+{q:"Sifat yasovchi qo‘shimcha?",o:["-li","-chi","-la","-zor"],c:0},
+{q:"Qaysi gapda sifat bor?",o:["Uy katta","U yugurdi","Kitob o‘qidi","Borib keldi"],c:0},
+{q:"Belgi bildirgan so‘z?",o:["Tez","Chiroyli","O‘qidi","Kitob"],c:1}
 ]
 },
 
-/* ================= 4–10 BLOKLAR ================= */
-/* uslubni saqlab qolish uchun shu qolip davom etadi */
-
+/* ================= 4-BLOK ================= */
 {
-id: 4, title: "4-blok: Sifat",
-tests: [
-{q:"Sifat nimani bildiradi?",o:["Predmet","Belgi","Harakat","Miqdor"],c:1},
-{q:"Rang bildirgan sifat?",o:["Katta","Oq","Tez","Yangi"],c:1},
-{q:"Qiyosiy daraja qaysi?",o:["Katta","Kattaroq","Eng katta","Kattalik"],c:1},
-{q:"Orttirma daraja qaysi?",o:["Katta","Kattaroq","Eng katta","Kattalik"],c:2},
-{q:"Sifat qaysi so‘zni aniqlaydi?",o:["Ot","Fe’l","Ravish","Olmosh"],c:0},
-{q:"Sifatdoshni toping.",o:["O‘qimoq","O‘qiydi","O‘qigan","O‘qir"],c:2},
-{q:"Belgi bildirgan so‘z?",o:["Uy","Yashil","Yurdi","Bugun"],c:1},
-{q:"Sifat yasalishi qaysi?",o:["-di","-li","-da","-lar"],c:1},
-{q:"Sifat gapda qaysi bo‘lak?",o:["Ega","Kesim","Aniqlovchi","Hol"],c:2},
-{q:"Darajalanmaydigan sifat?",o:["Oq","Temir","Yaxshi","Katta"],c:1}
+id:4,
+title:"4-blok: Ravish",
+tests:[
+{q:"Ravish nimani bildiradi?",o:["Belgi","Harakat holati","Predmet","Shaxs"],c:1},
+{q:"Qaysi ravish?",o:["Tez","Katta","Kitob","Uy"],c:0},
+{q:"Payt ravishi?",o:["Bugun","Tez","Chiroyli","Yaxshi"],c:0},
+{q:"Hol ravishi?",o:["Sekin","Bugun","U","Kitob"],c:0},
+{q:"Ravishning so‘roqlari?",o:["Qanday? Qachon?","Kim?","Nima?","Qayer?"],c:0},
+{q:"O‘rin ravishi?",o:["Bu yerda","Sekin","Bugun","Yaxshi"],c:0},
+{q:"Daraja ravishi?",o:["Juda","Bugun","Bu yerda","Ertaga"],c:0},
+{q:"Ravish yasovchi qo‘shimcha?",o:["-cha","-chi","-kor","-zor"],c:0},
+{q:"Qaysi gapda ravish bor?",o:["U tez keldi","Uy katta","Kitob bor","Daraxt o‘sdi"],c:0},
+{q:"Holni bildirgan so‘z?",o:["Tez","Kitob","Uy","Qalam"],c:0}
 ]
 },
 
+/* ================= 5-BLOK ================= */
 {
-id: 5, title: "5-blok: Ravish",
-tests: [
-{q:"Ravish nimani bildiradi?",o:["Predmet","Harakat holati","Belgi","Shaxs"],c:1},
-{q:"Qaysi ravish?",o:["Tez","Yaxshi","Kitob","Bor"],c:0},
-{q:"Payt ravishini toping.",o:["Bugun","Sekin","Yaxshi","Ko‘p"],c:0},
-{q:"O‘rin ravishi?",o:["Bu yerda","Tez","Oz","Ko‘p"],c:0},
-{q:"Ravish qaysi so‘z turkumiga bog‘lanadi?",o:["Ot","Fe’l","Sifat","Olmosh"],c:1},
-{q:"Daraja ravishi?",o:["Juda","Bugun","Bu yerda","Endi"],c:0},
-{q:"Ravish yasovchi qo‘shimcha?",o:["-cha","-di","-lar","-ni"],c:0},
-{q:"Hol vazifasida kelgan so‘z?",o:["Tez","Uy","Yashil","Kitob"],c:0},
-{q:"Ravish savoli?",o:["Qanday?","Qayerda?","Qachon?","Barchasi"],c:3},
-{q:"Ravishning vazifasi?",o:["Belgilash","Harakatni aniqlash","Nomlash","Sanash"],c:1}
+id:5,
+title:"5-blok: Olmosh",
+tests:[
+{q:"Olmosh nimani almashtiradi?",o:["Fe’lni","Otni","Sifatni","Ravishni"],c:1},
+{q:"Qaysi olmosh?",o:["U","Kitob","Chiroyli","Tez"],c:0},
+{q:"Shaxs olmoshi?",o:["Men","Bu","Kim","Qaysi"],c:0},
+{q:"Ko‘rsatish olmoshi?",o:["Bu","Men","Kim","Qanday"],c:0},
+{q:"So‘roq olmoshi?",o:["Kim","Bu","U","Biz"],c:0},
+{q:"Belgili olmosh?",o:["Hamma","Kim","Bu","Men"],c:0},
+{q:"Bo‘lishsizlik olmoshi?",o:["Hech kim","Men","Bu","U"],c:0},
+{q:"Olmosh qaysi so‘zni almashtiradi?",o:["Ot","Fe’l","Ravish","Sifat"],c:0},
+{q:"Qaysi gapda olmosh bor?",o:["U keldi","Kitob bor","Uy katta","Tez yugurdi"],c:0},
+{q:"Olmoshning vazifasi?",o:["Takrorni kamaytirish","Bezash","Urg‘u","Ohang"],c:0}
 ]
 },
 
+/* ================= 6–10 BLOKLAR (PREMIUM) ================= */
 {
-id: 6, title: "6-blok: Olmosh",
-tests: [
-{q:"Olmosh nimani almashtiradi?",o:["Fe’l","Ot","Ravish","Bog‘lovchi"],c:1},
-{q:"Kishilik olmoshi?",o:["Bu","U","Kim","Qaysi"],c:1},
-{q:"Ko‘rsatish olmoshi?",o:["Men","U","Bu","Kim"],c:2},
-{q:"So‘roq olmoshi?",o:["Kim","Bu","U","O‘sha"],c:0},
-{q:"Olmosh gapda qaysi bo‘lak?",o:["Faqat ega","Faqat kesim","Turli","Faqat hol"],c:2},
-{q:"O‘zlik olmoshi?",o:["O‘zi","U","Bu","Kim"],c:0},
-{q:"Belgiga ishora qiluvchi?",o:["Shu","Men","Kim","O‘sha"],c:0},
-{q:"Olmoshlar nega kerak?",o:["Takrorni oldini olish","Bezash","Sanash","Bog‘lash"],c:0},
-{q:"Olmosh so‘roqmi?",o:["Qaysi","U","Bu","O‘sha"],c:0},
-{q:"Olmosh ot o‘rnida keladimi?",o:["Yo‘q","Ba’zan","Ha","Faqat she’rda"],c:2}
-]
-},
-
+id:6,title:"6-blok: Son",tests:[{q:"Son nimani bildiradi?",o:["Miqdor","Harakat","Belgi","Predmet"],c:0},
+{q:"Qaysi son?",o:["Uch","Kitob","Yaxshi","Bor"],c:0},
+{q:"Miqdor son?",o:["Beshta","Beshinchi","Besh","Uchov"],c:2},
+{q:"Tartib son?",o:["Beshinchi","Besh","Beshta","Uchov"],c:0},
+{q:"Jamlovchi son?",o:["Uchov","Uch","Uchinchi","Uchta"],c:0},
+{q:"Sonning so‘roqlari?",o:["Qancha? Nechta?","Kim?","Qanday?","Qayer?"],c:0},
+{q:"Son qaysi so‘z turkumi?",o:["Mustaqil","Yordamchi","Bog‘lovchi","Yuklama"],c:0},
+{q:"Hisob son?",o:["Uch","Uchinchi","Uchov","Uchta"],c:0},
+{q:"Qaysi gapda son bor?",o:["Uch kitob bor","Uy katta","U keldi","Tez yugurdi"],c:0},
+{q:"Son vazifasi?",o:["Miqdor bildirish","Harakat","Belgi","Hol"],c:0}
+]},
 {
-id: 7, title: "7-blok: Son",
-tests: [
-{q:"Son nimani bildiradi?",o:["Belgi","Miqdor","Harakat","Holat"],c:1},
-{q:"Sanoq son?",o:["Birinchi","Uch","Uchala","Uchinchisi"],c:1},
-{q:"Tartib son?",o:["Uch","Uchta","Uchinchi","Uchov"],c:2},
-{q:"Jamlovchi son?",o:["Uch","Uchta","Uchov","Uchinchi"],c:2},
-{q:"Son qaysi so‘zni aniqlaydi?",o:["Fe’l","Ot","Ravish","Sifat"],c:1},
-{q:"Son savoli?",o:["Qancha?","Qanday?","Qayerda?","Kim?"],c:0},
-{q:"Son yasovchi qo‘shimcha?",o:["-inchi","-li","-da","-ni"],c:0},
-{q:"Son gapda qaysi bo‘lak?",o:["Aniqlovchi","Kesim","Hol","Bog‘lovchi"],c:0},
-{q:"Son darajalanadimi?",o:["Ha","Yo‘q","Ba’zan","She’rda"],c:1},
-{q:"Son mustaqil so‘z turkumi?",o:["Yo‘q","Ha","Faqat yozma","Faqat og‘zaki"],c:1}
-]
-},
-
+id:7,title:"7-blok: Bog‘lovchi",tests:[{q:"Bog‘lovchi nima qiladi?",o:["Bog‘laydi","Ajratadi","Sanaydi","Ta’kidlaydi"],c:0},
+{q:"Qaysi bog‘lovchi?",o:["Va","Men","Bu","Tez"],c:0},
+{q:"Teng bog‘lovchi?",o:["Va","Chunki","Agar","Go‘yo"],c:0},
+{q:"Ergash bog‘lovchi?",o:["Chunki","Va","Ham","Yoki"],c:0},
+{q:"Bog‘lovchi vazifasi?",o:["So‘zlarni bog‘lash","So‘roq","Hol","Kesim"],c:0},
+{q:"Qaysi gapda bog‘lovchi bor?",o:["Men va sen","Uy katta","Kitob bor","U yugurdi"],c:0},
+{q:"Bog‘lovchi so‘z turkumi?",o:["Yordamchi","Mustaqil","Ot","Fe’l"],c:0},
+{q:"Yoki qanday bog‘lovchi?",o:["Teng","Ergash","Hol","Kesim"],c:0},
+{q:"Bog‘lovchi gap bo‘lagi bo‘ladimi?",o:["Yo‘q","Ha","Ba’zan","Faqat she’rda"],c:0},
+{q:"Bog‘lovchi ma’nosi?",o:["Aloqa","Belgi","Harakat","Miqdor"],c:0}
+]},
 {
-id: 8, title: "8-blok: Bog‘lovchi",
-tests: [
-{q:"Bog‘lovchi vazifasi?",o:["So‘z yasash","Bog‘lash","Sanash","Belgilash"],c:1},
-{q:"Teng bog‘lovchi?",o:["Va","Agar","Chunki","Negaki"],c:0},
-{q:"Ergashtiruvchi?",o:["Va","Yoki","Agar","Ham"],c:2},
-{q:"Bog‘lovchi so‘z turkumimi?",o:["Yo‘q","Ha","Qisman","Ba’zan"],c:1},
-{q:"Bog‘lovchi gap bo‘lagimi?",o:["Ha","Yo‘q","Ba’zan","She’rda"],c:1},
-{q:"Uyushiq bo‘laklarni bog‘laydi?",o:["Ot","Bog‘lovchi","Son","Olmosh"],c:1},
-{q:"Qarama-qarshi bog‘lovchi?",o:["Va","Lekin","Ham","Yoki"],c:1},
-{q:"Bog‘lovchi mustaqil ma’nolimi?",o:["Ha","Yo‘q","Ba’zan","Kamdan"],c:1},
-{q:"Bog‘lovchi misoli?",o:["Va","Uy","Tez","Yashil"],c:0},
-{q:"Bog‘lovchi nechta tur?",o:["2","3","4","5"],c:0}
-]
-},
-
+id:8,title:"8-blok: Yuklama",tests:[{q:"Yuklama vazifasi?",o:["Ta’kidlash","Bog‘lash","Sanash","Ajratish"],c:0},
+{q:"Qaysi yuklama?",o:["Ham","Va","U","Kitob"],c:0},
+{q:"-mi qanday yuklama?",o:["So‘roq","Ta’kid","Inkori","Bog‘lovchi"],c:0},
+{q:"Yuklama qaysi turkum?",o:["Yordamchi","Mustaqil","Ot","Fe’l"],c:0},
+{q:"Yuklama gap bo‘lagi bo‘ladimi?",o:["Yo‘q","Ha","Ba’zan","Doim"],c:0},
+{q:"Faqat yuklamami?",o:["Ha","Yo‘q","Ba’zan","Doim"],c:0},
+{q:"Yuklama ohangga ta’sir qiladimi?",o:["Ha","Yo‘q","Kamdan","Faqat she’rda"],c:0},
+{q:"Qaysi gapda yuklama bor?",o:["U ham keldi","Uy katta","Kitob bor","U yugurdi"],c:0},
+{q:"Yuklama mustaqil ma’nolimi?",o:["Yo‘q","Ha","Ba’zan","Doim"],c:0},
+{q:"Yuklama so‘z turkumi?",o:["Yordamchi","Ot","Fe’l","Sifat"],c:0}
+]},
 {
-id: 9, title: "9-blok: Imlo",
-tests: [
-{q:"To‘g‘ri yozilgan so‘z?",o:["Muomila","Muomala","Muamola","Muomalla"],c:1},
-{q:"Ajratib yoziladi?",o:["Hechkim","Harqachon","Hech qachon","Birpas"],c:2},
-{q:"Qo‘shib yoziladi?",o:["Har xil","Hech kim","Birdaniga","Ko‘pdan-ko‘p"],c:2},
-{q:"Imlo xatosi qaysi?",o:["Mehnatkash","Asqatmoq","Dazmol","Muomila"],c:3},
-{q:"Qaysi so‘z to‘g‘ri?",o:["Rahmat","Raxmat","Rohmat","Raxmat"],c:0},
-{q:"Chiziqcha qayerda?",o:["Ota-ona","Bugun","Kitob","Yozdi"],c:0},
-{q:"Imlo nimani o‘rganadi?",o:["So‘z","To‘g‘ri yozish","Gap","Ma’no"],c:1},
-{q:"Imloda asos nima?",o:["Talaffuz","Qoidalar","Ohang","Sheva"],c:1},
-{q:"Qaysi noto‘g‘ri?",o:["Foyda","Foida","Mehnat","Yordam"],c:1},
-{q:"Imloviy me’yor?",o:["Rasmiy","To‘g‘ri yozuv","Sheva","Og‘zaki"],c:1}
-]
-},
-
+id:9,title:"9-blok: Imlo",tests:[{q:"Imlo nimani o‘rganadi?",o:["Yozuvni","Talaffuzni","Ohangni","Urg‘uni"],c:0},
+{q:"Qo‘shib yoziladigan so‘z?",o:["Hechkim","Hech kim","Hech-kim","Hech  kim"],c:1},
+{q:"Ajratib yoziladi?",o:["Har kim","Hechkim","Harkim","Hech-kim"],c:0},
+{q:"Chiziqcha bilan?",o:["Ota-ona","Otam","Ota ona","Otaona"],c:0},
+{q:"Imlo qoidasi nima?",o:["Yozuv me’yori","Ohang","Urg‘u","Talaffuz"],c:0},
+{q:"Qaysi so‘z xato?",o:["Mehnatkash","Xato","Bilimdon","O‘qituvchi"],c:1},
+{q:"Imlo lug‘ati nima uchun?",o:["Tekshirish","O‘qish","Yozish","Gapirish"],c:0},
+{q:"Qaysi yozuv to‘g‘ri?",o:["Birinchi","Birin chi","Bir inchi","Bir-inchi"],c:0},
+{q:"Imlo nimaga xizmat qiladi?",o:["Aniqlik","Bezash","Ohang","Urg‘u"],c:0},
+{q:"Imlo xatosi nima?",o:["Yozuvdagi xato","Talaffuz","Ma’no","Urg‘u"],c:0}
+]},
 {
-id: 10, title: "10-blok: Tinish belgilari",
-tests: [
-{q:"Vergul qayerda qo‘yiladi?",o:["Uyushiq bo‘lakda","So‘roq gapda","Buyruqda","Undalmada"],c:0},
-{q:"Nuqta qayerda?",o:["So‘roq gapda","Buyruqda","Xabar gapda","Undalmada"],c:2},
-{q:"So‘roq belgisi?",o:["Xabar","So‘roq","Buyruq","Undalma"],c:1},
-{q:"Undov belgisi?",o:["Buyruq","So‘roq","Xabar","Sanash"],c:0},
-{q:"Tire qayerda?",o:["Ega–kesim orasida","Har doim","So‘roq gapda","Undalmada"],c:0},
-{q:"Ko‘p nuqta nimani bildiradi?",o:["Savol","Fikr uzilishi","Buyruq","Undalma"],c:1},
-{q:"Qavs vazifasi?",o:["Izoh","So‘roq","Buyruq","Bog‘lash"],c:0},
-{q:"Qo‘shtirnoq qayerda?",o:["Ko‘chirma gapda","Xabar gapda","So‘roq gapda","Undalmada"],c:0},
-{q:"Nuqtali vergul?",o:["Murakkab gapda","Oddiy gapda","So‘roq gapda","Buyruqda"],c:0},
-{q:"Tinish belgisi nimani ko‘rsatadi?",o:["Ma’no","Ohang","Tuzilish","Barchasi"],c:3}
-]
-}
+id:10,title:"10-blok: Tinish belgilari",tests:[{q:"Nuqta qachon qo‘yiladi?",o:["Gap oxirida","Boshlanishda","So‘roqdan oldin","Bog‘lovchidan keyin"],c:0},
+{q:"So‘roq belgisi qachon?",o:["Savolda","Buyruqda","Undovda","Xabarda"],c:0},
+{q:"Undov belgisi?",o:["His-hayajon","Savol","Xabar","Izoh"],c:0},
+{q:"Vergul vazifasi?",o:["Ajratish","Bog‘lash","Yakunlash","Boshlash"],c:0},
+{q:"Qo‘shtirnoq qachon?",o:["Ko‘chirma gapda","So‘roq","Buyruq","Xabar"],c:0},
+{q:"Ikki nuqta vazifasi?",o:["Izohlash","Savol","Hayajon","Tugatish"],c:0},
+{q:"Nuqtali vergul?",o:["Murakkab gapda","Oddiy gapda","So‘roq","Buyruq"],c:0},
+{q:"Tinish belgilari nimaga xizmat qiladi?",o:["Mazmunni aniqlash","Bezash","Urg‘u","Ohang"],c:0},
+{q:"Qaysi belgilar tinish?",o:[".,?!","abc","123","+-*/"],c:0},
+{q:"Vergul qo‘yiladi?",o:["Uyushiq bo‘laklarda","Har gapda","So‘z boshida","Har doim"],c:0}
+]}
 ];
 
 const box = document.getElementById("tests-container");
@@ -185,25 +168,23 @@ ${testBlocks.map(b=>`<option value="${b.id}">${b.title}</option>`).join("")}
 `;
 
 document.getElementById("blockSelect").addEventListener("change",function(){
-const id = Number(this.value);
-const area = document.getElementById("testArea");
-area.innerHTML = "";
-const block = testBlocks.find(b=>b.id===id);
-if(!block) return;
+const id=Number(this.value);
+const area=document.getElementById("testArea");
+area.innerHTML="";
 
-block.tests.forEach((t,i)=>{
-const c=document.createElement("div");
-c.className="card";
-c.innerHTML=`<b>${i+1}. ${t.q}</b>`;
-t.o.forEach((opt,ix)=>{
-const d=document.createElement("div");
-d.className="option";
-d.innerText=String.fromCharCode(65+ix)+") "+opt;
-d.onclick=()=>d.classList.add(ix===t.c?"correct":"wrong");
-c.appendChild(d);
-});
-area.appendChild(c);
-});
-});
+if(!isPremium() && id>5){
+area.innerHTML=`<div class="card"><b>🔒 Premium blok</b><p>1–5 bepul</p></div>`;
+return;
+}
 
+const block=testBlocks.find(b=>b.id===id);
+area.innerHTML=`
+<div class="card">
+<b>${block.title}</b><br><br>
+${block.tests.map(t=>`
+<p>${t.q}</p>
+${t.o.map(v=>`<label><input type="radio"> ${v}</label><br>`).join("")}
+`).join("")}
+</div>`;
+});
 });
