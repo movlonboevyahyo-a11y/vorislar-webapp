@@ -4,37 +4,77 @@
   <meta charset="UTF-8">
   <title>Ona tili va milliy sertifikat</title>
   <style>
-    body { font-family: Arial; background:#f4f4f4; margin:0; padding:20px }
-    .card { background:#fff; padding:15px; margin-bottom:15px; border-radius:6px }
-    .bottom { position:fixed; bottom:0; left:0; right:0; background:#fff; padding:10px; border-top:1px solid #ccc }
-    button { padding:8px 12px }
-    select, textarea { width:100%; padding:6px }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding-bottom: 80px;
+    }
+    h2 { padding: 15px }
+    .card {
+      background: #fff;
+      margin: 15px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    textarea, select {
+      width: 100%;
+      padding: 8px;
+    }
+    button {
+      padding: 8px 14px;
+      margin-top: 10px;
+    }
+    /* Pastki tugmalar */
+    .bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 1px solid #ccc;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
   </style>
 </head>
 <body>
 
+<!-- TESTLAR -->
 <h2>📘 Testlar</h2>
 <div id="tests-container"></div>
 
+<!-- ESSAY -->
 <h2>✍️ Essay</h2>
 <div class="card">
-  <textarea id="essayText" rows="5" placeholder="Essay yozing..."></textarea><br><br>
+  <textarea id="essayText" rows="6" placeholder="Essay yozing..."></textarea>
   <button onclick="submitEssay()">Essay yuborish</button>
+</div>
+
+<!-- PROFIL -->
+<h2>👤 Profil</h2>
+<div class="card">
+  <p><b>Holat:</b> <span id="premiumStatus">Bepul</span></p>
+  <p>📘 Testlar: 1–5 bepul</p>
+  <p>✍️ Essay: kuniga 1 ta bepul</p>
 </div>
 
 <!-- PASTKI TUGMALAR -->
 <div class="bottom">
-  Premium holat: <b id="premiumStatus">Bepul</b>
-  <button style="float:right" onclick="setPremium()">Premium olish</button>
+  <button onclick="window.scrollTo(0,0)">🏠 Testlar</button>
+  <button onclick="alert('Essay yuqorida')">✍️ Essay</button>
+  <button onclick="setPremium()">⭐ Premium</button>
 </div>
 
+<!-- SCRIPTlar -->
 <script src="./premium.js"></script>
 <script src="./tests.js"></script>
 
 <script>
-if (isPremium()) {
-  document.getElementById("premiumStatus").innerText = "Premium ✅";
-}
+  if (isPremium()) {
+    document.getElementById("premiumStatus").innerText = "Premium ✅";
+  }
 </script>
 
 </body>
